@@ -1,6 +1,7 @@
 package com.busanit501.springex.sample.mapper;
 
 import com.busanit501.springex.mapper.TimeMapper;
+import com.busanit501.springex.mapper.TimeMapper2;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,7 +19,7 @@ public class TimeMapperTest {
     // 해당 인스턴스가 없다면, 널로 받을게.
     // 기본값은 required = true
     @Autowired(required = false)
-    private TimeMapper timeMapper;
+    private TimeMapper2 timeMapper;
 
     @Test
     public void testGetTime() {
