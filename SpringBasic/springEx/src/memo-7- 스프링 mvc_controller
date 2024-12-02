@@ -1,0 +1,14 @@
+특징,
+- 상속이나 인터페이스 구현하는 방식을 사용하지 않고, 애너테이션 (@) 처리가 가능함
+예시) @Controller, @Service, @Repository, @Component 등으로 처리가능
+
+- override 없이도 필요한 메서드 정의 가능
+- 메서드 파라미터를 기본 자료형이나 객체 자료형으로 지정가능
+- 메서드의 리턴 타입도 String, void , 객체 등 다양한 타입 가능
+예시) Controller -> 1) 화면제공 , 2) 데이터 제공
+1) 화면을 제공할 때 , 해당 메서드의 이름으로 뷰.jsp 파일로 맵핑 하거나
+리턴이 문자열이면 return "list", list.jsp 이런 형식으로 화면을 가리킴
+@Controller
+<->
+@RestController, 리턴 타입이 ResponseBody로 되어있음
+화면을 제공하지 않고 데이터만 제공함
