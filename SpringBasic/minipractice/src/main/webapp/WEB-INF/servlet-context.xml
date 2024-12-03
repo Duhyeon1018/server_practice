@@ -28,4 +28,19 @@
 
     <!--    자바의 애너테이션으로 @Controller 이용할려면, 등록된 파일의 위치 패키지를 시스템에게 알려줘야함. -->
     <context:component-scan base-package="com.busanit501.springex.controller"/>
+
+    <!--    LocalDate 타입, 문자열 타입으로 형변환 해주는 기능 , 시스템에 빈(객체)으로 등록-->
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <!--        여기 속성에 우리가 만든 클래스 경로를 지정하기-->
+        <property name="formatters">
+            <set>
+                <bean class="com.busanit501.springex.controller.formatter.LocalDateFormatter"></bean>
+            </set>
+        </property>
+    </bean>
+
+    <!--    위의 설정을 , 애너테이션에서 이용가능하게 적용하기.-->
+    <mvc:annotation-driven conversion-service="conversionService"/>
+
+
 </beans>

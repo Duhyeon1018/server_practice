@@ -1,32 +1,35 @@
 package com.busanit501.springex.controller;
-
-
+import com.busanit501.springex.dto.TestDTO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-@Controller
+@Controller//1) 화면 2) 데이터제공
+@RequestMapping("/test")
+// 웹브라우저에서 아래의 경로로 오는 url 전부 여기 컨트롤러가 받아서 작업함
+// localhost:8080/test/ 모든 경로가 저기로 지정
 @Log4j2
 public class TestController {
 
-    @GetMapping("/test")
-    // 확인. http://localhost:8080/hello
-    // 매핑이 해당 메서드명과 동일한 뷰 파일로 연결됨
-    // /WEB-INF/views/
-    // hello(메서드명)
-    // .jsp
-    public void test() {
-        //아직 화면이 없어서 임의로 만들기
-        log.info("test");
+    // localhost:8080/test/list
+    @RequestMapping("/list")
+    public void list() {
+        log.info("list : 화면제공은 메서드명으로 제공함.");
     }
 
-    @GetMapping("/test2")
-    //만약에 리턴 타입이 문자열이면, 해당 문자열의 이름이
-    // 뷰의 파일명으로 , 뷰를 매핑, 할당
 
-    public String test2() {
-        //아직 화면이 없어서 임의로 만들기
-        log.info("test2");
-        return "Test2";
+    // localhost:8080/test/test_register
+    //1) 글 작성 폼 -> get
+    //2) 글 작성 로직처리 -> post
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public void register() {
+        log.info("todoController register : 화면제공은 메서드명으로 제공함.");
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public void registerPost(TestDTO testDTO) {
+        log.info("todoController register post 로직처리 : 화면제공은 메서드명으로 제공함.");
+        log.info("todoController register post todoDTO : " + testDTO);
     }
 }
