@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>/todo/register ,   register.jsp 화면입니다</h1>
+    <h1>/test/register ,   register.jsp 화면입니다</h1>
 <form action = "/test/register" method="post">
     <div>
         Title : <input type="text" name="title">

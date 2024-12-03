@@ -10,8 +10,8 @@
 
     <!--    낱개로 빈즈들을 등록 했다면-->
 
-    <!--    <bean class="com.busanit501.springex.sample.SampleDAO"></bean>-->
-    <!--    <bean class="com.busanit501.springex.sample.SampleService"></bean>-->
+    <!--    <bean class="com.busanit501.springex.SampleDAO"></bean>-->
+    <!--    <bean class="com.busanit501.springex.SampleService"></bean>-->
 
     <!--    통으로 패키지 등록하기. -->
     <context:component-scan base-package="com.busanit501.springex.sample"/>
@@ -58,6 +58,10 @@
     <!--    그래서, 시스템에 등록해서 이용해야함. -->
     <!--    결론, 우리는 이방식으로 안하고, 파일 분리 형식으로 작업 할 예정. -->
     <mybatis:scan base-package="com.busanit501.springex.mapper"></mybatis:scan>
+
+    <!--    모델 맵퍼 설정 클래스 경로 추가 -> @Configuration 애너테이션이용 가능.-->
+    <context:component-scan base-package="com.busanit501.springex.config"/>
+    <context:component-scan base-package="com.busanit501.springex.service"/>
 
 
 </beans>

@@ -1,18 +1,16 @@
-package com.busanit501.springex.dto;
+package com.busanit501.springex.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 
-public class TodoDTO {
+public class TodoVO {
     private Long tno;
     private String title;
     private LocalDate dueDate;
