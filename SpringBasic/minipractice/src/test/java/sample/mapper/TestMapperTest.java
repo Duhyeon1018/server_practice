@@ -48,5 +48,17 @@ public class TestMapperTest {
         }
     }
 
+    @Test
+    public void testSelectOne() {
+        TestVO  testVo = testMapper.selectOne(1L);
+        log.info("testVo : " + testVo);
+    }
+
+    @Test
+    public void testDelete() {
+        testMapper.delete(2L);
+
+    }
+
 
 }

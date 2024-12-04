@@ -9,6 +9,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -67,6 +68,36 @@ public class TestController {
         //검사가 통과가 되고, 정상 입력
         testService.register(testDTO);
 
+        return "redirect:/test/list";
+    }
+
+
+    @RequestMapping("/read")
+    public void read(Long tno, Model model) {
+        log.info("TestController read :");
+        TestDTO testDTO = testService.getOne(tno);
+        log.info("TestController read 데이터 유무 확인 :" + testDTO);
+        //데이터 탑재. 서버 -> 웹
+        model.addAttribute("testDTO", testDTO);
+
+    }
+
+
+    // 수정 1) 폼 2) 로직 처리
+    @RequestMapping("/update")
+    public void update(Long tno, Model model) {
+        log.info("TestController read :");
+        TestDTO testDTO = testService.getOne(tno);
+        log.info("TodoController read 데이터 유무 확인 :" + testDTO);
+        //데이터 탑재. 서버 -> 웹
+        model.addAttribute("testDTO", testDTO);
+
+    }
+
+    // 삭제
+    @PostMapping("/delete")
+    public String delete(Long tno) {
+        testService.delete(tno);
         return "redirect:/test/list";
     }
 }

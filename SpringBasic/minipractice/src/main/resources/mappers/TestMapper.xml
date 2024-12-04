@@ -19,4 +19,12 @@
     <select id="selectAll" resultType="com.busanit501.springex.domain.TestVO">
         select * from tbl_test order by tno desc
     </select>
+
+    <select id="selectOne" resultType="com.busanit501.springex.domain.TestVO">
+        select * from tbl_test where tno = #{tno}
+    </select>
+
+    <delete id="delete">
+        delete from tbl_test where tno = #{tno}
+    </delete>
 </mapper>

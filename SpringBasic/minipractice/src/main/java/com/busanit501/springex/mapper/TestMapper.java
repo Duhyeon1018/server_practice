@@ -2,6 +2,7 @@ package com.busanit501.springex.mapper;
 
 import com.busanit501.springex.domain.TestVO;
 
+
 import java.util.List;
 
 public interface TestMapper {
@@ -11,4 +12,13 @@ public interface TestMapper {
     void insert(TestVO testVO);
 
     List<TestVO> selectAll();
+
+    TestVO selectOne(Long tno);
+
+    void delete(Long tno);
 }
+
+
+
+
+

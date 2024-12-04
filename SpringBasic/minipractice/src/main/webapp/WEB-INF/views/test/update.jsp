@@ -57,38 +57,45 @@
                         Featured
                     </div>
                     <div class="card-body">
-                        <%--                        Todo List 부분 작성--%>
-                        <h5 class="card-title">리스트 목록</h5>
-                        <button type="button" class="btn btn-primary insertTodoBtn">글쓰기</button>
-                        <table class="table">
-                            <thead>
-                            <%--                                소제목--%>
-                            <tr>
-                                <th scope="col">Tno</th>
-                                <th scope="col">Title</th>
-                                <th scope="col">Writer</th>
-                                <th scope="col">DueDate</th>
-                                <th scope="col">Finished</th>
-                            </tr>
-                            </thead>
-                            <%--                                본문--%>
-                            <tbody>
+                        <%--                        Todo 입력 폼 여기에 작성--%>
+                        <form action="/test/update" method="post">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Tno</span>
+                                <input type="text" name="tno" class="form-control" readonly
+                                       value=
+                                <c:out value="${testDTO.tno}"></c:out>>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Title</span>
+                                <input type="text" name="title" class="form-control" placeholder="제목을 입력해주세요"
+                                       value=<c:out value="${testDTO.title}"></c:out>>
+                            </div>
 
-                            <c:forEach items="${list}" var="dto">
-                                <tr>
-                                    <th scope="row"><c:out value="${dto.tno}"></c:out></th>
-                                    <td><a href="/test/read?tno=${dto.tno}" class="text-decoration-none">
-                                        <c:out value="${dto.title}"></c:out>
-                                    </a></td>
-                                    <td><c:out value="${dto.writer}"></c:out></td>
-                                    <td><c:out value="${dto.dueDate}"></c:out></td>
-                                    <td><c:out value="${dto.finished}"></c:out></td>
-                                </tr>
-                            </c:forEach>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">DueDate</span>
+                                <input type="date" name="dueDate" class="form-control"
+                                       value=<c:out value="${testDTO.dueDate}"></c:out>>
+                            </div>
 
-                            </tbody>
-                        </table>
-                        <%--                       Todo List 부분 작성--%>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Writer</span>
+                                <input type="text" name="writer" class="form-control" readonly
+                                       value=<c:out value="${testDTO.writer}"></c:out>>
+                            </div>
+                            <div class="input-group mb-3">
+                                <label class="form-check-label">Finished &nbsp</label>
+                                <input type="checkbox" name="finished" class="form-check-input"
+                                ${testDTO.finished ? "checked" : ""}>
+                            </div>
+                            <div class="my-4">
+                                <div class="float-end">
+                                    <button type="button" class="btn btn-primary">적용하기</button>
+                                    <button type="button" class="btn btn-danger">삭제하기</button>
+                                    <button type="button" class="btn btn-secondary">목록가기</button>
+                                </div>
+                            </div>
+                        </form>
+                        <%--                        Todo 입력 폼 여기에 작성--%>
 
                     </div>
                 </div>
@@ -122,13 +129,42 @@
     console.log(serverValidResult)
 </script>
 
+<%--목록가기 및 수정폼 가기 이벤트 리스너--%>
 <script>
-    document.querySelector(".insertTodoBtn").addEventListener("click",
+    // 수정폼
+    document.querySelector(".btn-primary").addEventListener("click",
         function (e) {
-// 글쓰기 폼으로 가야함.
-            self.location = "/test/register"
+            // 수정폼으로 가야함. 그러면, 필요한 준비물 tno 번호가 필요함
+            self.location = "/test/update?tno=" +${testDTO.tno}
                 , false
         })
+    // 목록
+    document.querySelector(".btn-secondary").addEventListener("click",
+        function (e) {
+            // 수정폼으로 가야함. 그러면, 필요한 준비물 tno 번호가 필요함
+            self.location = "/test/list"
+                , false
+        })
+
+    // 삭제기능.
+    document.querySelector(".btn-danger").addEventListener("click",
+        function (e) {
+            // 폼에서, 필요한  tno가져오기.
+            const formObj = document.querySelector("form")
+
+            // 기본 폼 방식으로 전달하는 기본 기능 제거 하고,
+            e.preventDefault()
+            e.stopPropagation() // 상위 태그로 전파 방지
+
+            // 삭제시 포스트로, tno 번호를 전달하는 방식.
+            // formObj , 원래 action: /todo/update
+            // 속성을 변경 가능해서, 임시로, 삭제 url 변경.
+            formObj.action = "/test/delete"
+            formObj.method = "post"
+            // todoDTO 모든 멤버가 같이 전달됨.
+            // tno, title, dueDate, finished, writer
+            formObj.submit()
+        },false)
 </script>
 
 

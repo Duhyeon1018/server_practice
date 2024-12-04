@@ -1,5 +1,6 @@
 package com.busanit501.springex.service;
 
+
 import com.busanit501.springex.domain.TestVO;
 import com.busanit501.springex.dto.TestDTO;
 import com.busanit501.springex.mapper.TestMapper;
@@ -7,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,5 +35,18 @@ public class TestServiceImpl implements TestService{
                 .collect(Collectors.toList());
         return list;
     }
+
+    @Override
+    public TestDTO getOne(Long tno) {
+        TestVO testVO= testMapper.selectOne(tno);
+        TestDTO testDTO = modelMapper.map(testVO,TestDTO.class);
+        return testDTO;
+    }
+
+    @Override
+    public void delete(Long tno) {
+        testMapper.delete(tno);
+    }
+
 
 }
