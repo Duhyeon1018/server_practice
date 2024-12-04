@@ -45,5 +45,18 @@ public class TodoServiceTest {
         }
     } //
 
+    @Test
+    public void testGetOne() {
+        TodoDTO todoDTO = todoService.getOne(1L);
+        log.info("todoDTO : " + todoDTO);
+
+    } //
+
+    @Test
+    public void testDelete() {
+        todoService.delete(3L);
+    } //
+
+
 
 }//

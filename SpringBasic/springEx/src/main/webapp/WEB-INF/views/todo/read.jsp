@@ -10,7 +10,7 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-    <div class="container-fluid">
+<div class="container-fluid">
     <div class="row">
         <!--        <h1>Header</h1>-->
         <!--        네비게이션바 추가 시작-->
@@ -57,38 +57,43 @@
                         Featured
                     </div>
                     <div class="card-body">
-                        <%--                        Todo List 부분 작성--%>
-                        <h5 class="card-title">리스트 목록</h5>
-                        <button type="button" class="btn btn-primary insertTodoBtn">글쓰기</button>
-                        <table class="table">
-                            <thead>
-                            <%--                                소제목--%>
-                            <tr>
-                                <th scope="col">Tno</th>
-                                <th scope="col">Title</th>
-                                <th scope="col">Writer</th>
-                                <th scope="col">DueDate</th>
-                                <th scope="col">Finished</th>
-                            </tr>
-                            </thead>
-                            <%--                                본문--%>
-                            <tbody>
+                        <%--                        Todo 입력 폼 여기에 작성--%>
+                        <%--                        <form action="/todo/register" method="post">--%>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Tno</span>
+                            <input type="text" name="tno" class="form-control" readonly
+                                   value=<c:out value="${todoDTO.tno}"></c:out> >
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Title</span>
+                            <input type="text" name="title" class="form-control" readonly
+                                   value=<c:out value="${todoDTO.title}"></c:out>>
+                        </div>
 
-                            <c:forEach items="${list}" var="dto">
-                                <tr>
-                                    <th scope="row"><c:out value="${dto.tno}"></c:out></th>
-                                    <td><a href="/todo/read?tno=${dto.tno}" class="text-decoration-none">
-                                        <c:out value="${dto.title}"></c:out>
-                                    </a></td>
-                                    <td><c:out value="${dto.writer}"></c:out></td>
-                                    <td><c:out value="${dto.dueDate}"></c:out></td>
-                                    <td><c:out value="${dto.finished}"></c:out></td>
-                                </tr>
-                            </c:forEach>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">DueDate</span>
+                            <input type="date" name="dueDate" class="form-control" readonly
+                                   value=<c:out value="${todoDTO.dueDate}"></c:out>>
+                        </div>
 
-                            </tbody>
-                        </table>
-                        <%--                       Todo List 부분 작성--%>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Writer</span>
+                            <input type="text" name="writer" class="form-control" readonly
+                                   value=<c:out value="${todoDTO.writer}"></c:out>>
+                        </div>
+                        <div class="input-group mb-3">
+                            <label class="form-check-label">Finished &nbsp</label>
+                            <input type="checkbox" name="finished" class="form-check-input" readonly
+                            ${todoDTO.finished ? "checked" : ""}>
+                        </div>
+                        <div class="my-4">
+                            <div class="float-end">
+                                <button type="button" class="btn btn-primary">수정하기</button>
+                                <button type="button" class="btn btn-secondary">목록가기</button>
+                            </div>
+                        </div>
+                        <%--                        </form>--%>
+                        <%--                        Todo 입력 폼 여기에 작성--%>
 
                     </div>
                 </div>
@@ -113,7 +118,7 @@
 <%--입력 폼에 관련 유효성 체크, 서버로부터  erros 키로 값을 받아오면, --%>
 <%--자바스크립 콘솔에 임시 출력.--%>
 <script>
-    const serverValidResult = {};
+    const serverValidResult = {    };
     // jstl , 반복문으로, 서버로부터 넘어온 여러 에러 종류가 많습니다.
     //     하나씩 꺼내서, 출력하는 용도.,
     <c:forEach items="${errors}" var="error">
@@ -122,13 +127,20 @@
     console.log(serverValidResult)
 </script>
 
+<%--목록가기 및 수정폼 가기 이벤트 리스너--%>
 <script>
-    document.querySelector(".insertTodoBtn").addEventListener("click",
-        function (e) {
-// 글쓰기 폼으로 가야함.
-            self.location = "/todo/register"
-                , false
-        })
+    // 수정폼
+    document.querySelector(".btn-primary").addEventListener("click",
+        function (e){
+            // 수정폼으로 가야함. 그러면, 필요한 준비물 tno 번호가 필요함
+            self.location = "/todo/update?tno="+${todoDTO.tno}
+                ,false})
+    // 목록
+    document.querySelector(".btn-secondary").addEventListener("click",
+        function (e){
+            // 수정폼으로 가야함. 그러면, 필요한 준비물 tno 번호가 필요함
+            self.location = "/todo/list"
+                ,false})
 </script>
 
 

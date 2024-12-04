@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -69,6 +70,49 @@ public class TodoController {
 
         return "redirect:/todo/list";
     }
+
+    // 상세조회, 컨트롤러, 서비스 연결 부분,
+    // http://localhost:8080/todo/read?tno=9
+    // 파라미터 자동 수집 부분 많이 활용.
+    // tno, 서버에서 바로 이용가능.
+    // 파리미터로 (TodoDTO todoDTO), 웹에서 넘어온 정보는
+    //model.addAttribute("todoDTO", todoDTO) 없이도,
+    // 뷰에서 -> EL 표기법으로 바로 사용가능 ${todoDTO}
+    @RequestMapping("/read")
+    public void read(Long tno, Model model) {
+        log.info("TodoController read :");
+        TodoDTO todoDTO = todoService.getOne(tno);
+        log.info("TodoController read 데이터 유무 확인 :" + todoDTO);
+        //데이터 탑재. 서버 -> 웹
+        model.addAttribute("todoDTO", todoDTO);
+
+    }
+
+
+    // 수정 1) 폼 2) 로직 처리
+    @RequestMapping("/update")
+    public void update(Long tno, Model model) {
+        log.info("TodoController read :");
+        TodoDTO todoDTO = todoService.getOne(tno);
+        log.info("TodoController read 데이터 유무 확인 :" + todoDTO);
+        //데이터 탑재. 서버 -> 웹
+        model.addAttribute("todoDTO", todoDTO);
+
+    }
+
+    // 삭제
+    @PostMapping("/delete")
+    public String delete(Long tno) {
+        todoService.delete(tno);
+        return "redirect:/todo/list";
+    }
+
+    // 페이징,
+
+    // 검색,
+
+    // 필터
+
 }
 
 
