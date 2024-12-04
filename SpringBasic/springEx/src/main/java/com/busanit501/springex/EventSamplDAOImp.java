@@ -1,7 +1,6 @@
-package com.busanit501.springex.sample;
+package com.busanit501.springex;
 
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 // 문제점, SampleDAO , 인터페이스를 구현하는 클래스가 2개인데,

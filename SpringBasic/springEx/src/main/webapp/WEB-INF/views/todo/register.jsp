@@ -1,5 +1,6 @@
 <!doctype html>
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -73,8 +74,8 @@
                                 <input type="text" name="writer" class="form-control" placeholder="작성자 입력해주세요">
                             </div>
                             <div class="input-group mb-3">
-                                <span class="input-group-text">Finished</span>
-                                <input type="checkbox" name="finished" class="form-control">
+                                <span class="form-check-label">Finished</span>
+                                <input type="checkbox" name="finished" class="form-check-input">
                             </div>
                             <div class="my-4">
                                 <div class="float-end">
@@ -93,9 +94,9 @@
         </div>
         <!--        class="row content"-->
     </div>
-    <div class="row content">
-        <h1>Content</h1>
-    </div>
+    <%--    <div class="row content">--%>
+    <%--        <h1>Content</h1>--%>
+    <%--    </div>--%>
     <div class="row footer">
         <!--        <h1>Footer</h1>-->
         <div class="row fixed-bottom" style="z-index: -100">
@@ -105,6 +106,18 @@
         </div>
     </div>
 </div>
+<%--입력폼에 관련 유효성 체크, 서버로부터 errors 키로 값을 받아오면--%>
+<%--자바스크립트 콘솔에 임시 출력--%>
+<script>
+    const serverValidResult = {   }
+    // jstl 이용해서 반복문으로 서버로부터 넘어온 여러 에러종류 많습니다.
+    // 하나씩 꺼내서 출력하는 용도
+    <c:forEach items="${errors}" var="error">
+    serverValidResult['${error.getField()}'] = '${error.defaultMessage}'
+    </c:forEach>
+    console.log(serverValidResult)
+
+</script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

@@ -1,4 +1,4 @@
-package com.busanit501.springex.sample;
+package com.busanit501.springex;
 
 import org.springframework.stereotype.Repository;
 

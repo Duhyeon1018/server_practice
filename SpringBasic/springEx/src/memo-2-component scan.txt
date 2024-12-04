@@ -13,7 +13,7 @@ web.xml -> 서블릿 설정 안하고, -> @WebServlet 대체.
 변경 전
 root-context.xml
 1) 설정 파일에 등록 후,
-<bean class="com.busanit501.springex.sample.SampleDAO"></bean>
+<bean class="com.busanit501.springex.SampleDAO"></bean>
 2) 단위테스트 파일에서,
 @Autowired 애너테이션 이용해서 사용했음.
 
