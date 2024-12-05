@@ -1,5 +1,6 @@
 package com.busanit501.springex.service;
 
+import com.busanit501.springex.domain.TodoVO;
 import com.busanit501.springex.dto.TodoDTO;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -56,6 +57,19 @@ public class TodoServiceTest {
     public void testDelete() {
         todoService.delete(3L);
     } //
+
+    @Test
+    public void testUpdate() {
+        // 업데이트 할 더미 데이터 필요, TodoVO
+        TodoDTO todoDTO = TodoDTO.builder()
+                .tno(5L)
+                .title("수정 제목")
+                .dueDate(LocalDate.now())
+                .finished(true)
+                .build();
+
+        todoService.update(todoDTO);
+    }
 
 
 

@@ -61,6 +61,21 @@ public class TodoMapperTest {
 
     }
 
+    @Test
+    public void testUpdate() {
+        // 업데이트 할 더미 데이터 필요, TodoVO
+        TodoVO todoVO = TodoVO.builder()
+                .tno(2L)
+                .title("수정 제목")
+                .dueDate(LocalDate.now())
+                .finished(true)
+                .build();
+
+        todoMapper.update(todoVO);
+    }
+
+
+
 
 
 }
