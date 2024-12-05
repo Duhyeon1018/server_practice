@@ -48,5 +48,11 @@ public class TestServiceImpl implements TestService{
         testMapper.delete(tno);
     }
 
+    @Override
+    public void update(TestDTO testDTO) {
+        TestVO testVO = modelMapper.map(testDTO,TestVO.class);
+        testMapper.update(testVO);
+    }
+
 
 }

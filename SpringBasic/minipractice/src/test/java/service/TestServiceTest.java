@@ -50,6 +50,22 @@ public class TestServiceTest {
         testService.delete(1L);
     } //
 
+    @Test
+    public void testUpdate() {
+        // 업데이트 할 더미 데이터 필요, TodoVO
+        TestDTO testDTO = TestDTO.builder()
+                .tno(6L)
+                .title("수정 제목(강두현 서비스테스트)")
+                .dueDate(LocalDate.now())
+                .finished(true)
+                .build();
+
+        testService.update(testDTO);
+    }
+
+
+
+
 
 
 }//

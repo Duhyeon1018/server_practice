@@ -89,7 +89,7 @@
                             </div>
                             <div class="my-4">
                                 <div class="float-end">
-                                    <button type="button" class="btn btn-primary">적용하기</button>
+                                    <button type="submit" class="btn btn-primary">적용하기</button>
                                     <button type="button" class="btn btn-danger">삭제하기</button>
                                     <button type="button" class="btn btn-secondary">목록가기</button>
                                 </div>

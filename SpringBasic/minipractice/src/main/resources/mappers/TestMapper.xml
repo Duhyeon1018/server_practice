@@ -27,4 +27,9 @@
     <delete id="delete">
         delete from tbl_test where tno = #{tno}
     </delete>
+
+    <update id="update">
+        update tbl_test set title = #{title}, dueDate = #{dueDate}, finished = #{finished}
+        where tno = #{tno}
+    </update>
 </mapper>

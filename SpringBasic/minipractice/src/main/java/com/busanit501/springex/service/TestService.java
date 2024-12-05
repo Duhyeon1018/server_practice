@@ -6,7 +6,12 @@ import java.util.List;
 
 public interface TestService {
     void register(TestDTO testDTO);
+
     List<TestDTO> getAll();
+
     TestDTO getOne(Long tno);
+
     void delete(Long tno);
+
+    void update(TestDTO testDTO);
 }

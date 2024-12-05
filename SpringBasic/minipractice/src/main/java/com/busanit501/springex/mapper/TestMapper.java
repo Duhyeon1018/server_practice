@@ -16,6 +16,8 @@ public interface TestMapper {
     TestVO selectOne(Long tno);
 
     void delete(Long tno);
+
+    void update(TestVO testVO);
 }
 
 

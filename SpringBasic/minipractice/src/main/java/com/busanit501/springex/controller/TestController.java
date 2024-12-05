@@ -94,6 +94,28 @@ public class TestController {
 
     }
 
+    //수정 로직 처리
+    @PostMapping("/update")
+    // 수정할 항목을 모두 받아서, TodoDTO 담습니다. 여기에 tno 도 포함 시키기
+    public String updateLogic(@Valid TestDTO testDTO, BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes) {
+
+        // 유효성 체크 -> 유효성 검증시, 통과 안된 원인이 있다면,
+        if (bindingResult.hasErrors()) {
+            log.info("has errors : 유효성 에러가 발생함.");
+            // 1회용으로, 웹 브라우저에서, errors , 키로 조회 가능함. -> 뷰 ${errors}
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            return "redirect:/test/update";
+        }
+
+        // 수정하는 로직 필요함.
+        // 주의사항, 체크박스의 값의 문자열 on 전달 받습니다.
+        log.info("testDTO확인 finished의 변환 여부 확인. : " + testDTO);
+
+        testService.update(testDTO);
+        return "redirect:/test/list";
+    }
+
     // 삭제
     @PostMapping("/delete")
     public String delete(Long tno) {

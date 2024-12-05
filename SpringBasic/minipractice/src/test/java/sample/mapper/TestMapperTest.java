@@ -60,5 +60,18 @@ public class TestMapperTest {
 
     }
 
+    @Test
+    public void testUpdate() {
+        // 업데이트 할 더미 데이터 필요, TodoVO
+        TestVO testVO = TestVO.builder()
+                .tno(8L)
+                .title("수정테스트(강두현)")
+                .dueDate(LocalDate.now())
+                .finished(true)
+                .build();
+
+        testMapper.update(testVO);
+    }
+
 
 }
