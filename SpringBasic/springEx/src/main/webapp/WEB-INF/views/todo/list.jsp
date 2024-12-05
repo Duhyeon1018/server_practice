@@ -10,7 +10,7 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-    <div class="container-fluid">
+<div class="container-fluid">
     <div class="row">
         <!--        <h1>Header</h1>-->
         <!--        네비게이션바 추가 시작-->
