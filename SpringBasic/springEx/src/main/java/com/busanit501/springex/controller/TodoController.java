@@ -1,5 +1,7 @@
 package com.busanit501.springex.controller;
 
+import com.busanit501.springex.dto.PageRequestDTO;
+import com.busanit501.springex.dto.PageResponseDTO;
 import com.busanit501.springex.dto.TodoDTO;
 import com.busanit501.springex.service.TodoService;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller// 1)화면 2)데이터 제공.
 @RequestMapping("/todo")
@@ -32,12 +33,19 @@ public class TodoController {
 
     // localhost:8080/todo/list
     @RequestMapping("/list")
-    public void list(Model model) {
+    // 기존 전체 페이지 출력 -> 페이징 처리된 목록 요소만 출력.
+//    public void list(Model model) {
+    public void list(@Valid PageRequestDTO pageRequestDTO ,
+                     BindingResult bindingResult,
+                     Model model) {
         log.info("TodoController list : 화면제공은 해당 메서드 명으로 제공함.");
-        List<TodoDTO> list = todoService.getAll();
-        log.info("TodoController list 데이터 유무 확인 :" + list);
+        if(bindingResult.hasErrors()) {
+            pageRequestDTO = PageRequestDTO.builder().build();
+        }
+        PageResponseDTO<TodoDTO> pageResponseDTO = todoService.getListWithPage(pageRequestDTO);
+        log.info("TodoController list 데이터 유무 확인 :" + pageResponseDTO);
         //데이터 탑재. 서버 -> 웹
-        model.addAttribute("list", list);
+        model.addAttribute("pageResponseDTO", pageResponseDTO);
 
     }
 
@@ -138,3 +146,11 @@ public class TodoController {
     // 필터
 
 }
+
+
+
+
+
+
+
+

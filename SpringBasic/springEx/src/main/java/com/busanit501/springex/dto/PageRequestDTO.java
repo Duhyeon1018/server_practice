@@ -14,6 +14,9 @@ import javax.validation.constraints.Positive;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PageRequestDTO {
+    // 웹 브라우저 -> 서버 (그 때 담을 용도로 쓰는게 PageRequestDTO)
+    // 예시 : http://localhost:8080/todo/list?page=1&size=10
+    // 화면에서 전달할 페이지 번호, 크기를 받을 상자가 필요
     // 현재 페이지 번호
     @Builder.Default
     @Min(value = 1)
