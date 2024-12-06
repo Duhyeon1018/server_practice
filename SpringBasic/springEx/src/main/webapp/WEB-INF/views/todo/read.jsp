@@ -67,7 +67,7 @@
                         <div class="input-group mb-3">
                             <span class="input-group-text">Title</span>
                             <input type="text" name="title" class="form-control" readonly
-                                   value=<c:out value="${todoDTO.title}"></c:out>>
+                                   value='<c:out value="${todoDTO.title}"></c:out>'>
                         </div>
 
                         <div class="input-group mb-3">
@@ -133,13 +133,13 @@
     document.querySelector(".btn-primary").addEventListener("click",
         function (e){
             // 수정폼으로 가야함. 그러면, 필요한 준비물 tno 번호가 필요함
-            self.location = "/todo/update?tno="+${todoDTO.tno}
+            self.location = `/todo/update?tno=${todoDTO.tno}&${pageRequestDTO.link}`
                 ,false})
     // 목록
     document.querySelector(".btn-secondary").addEventListener("click",
         function (e){
             // 수정폼으로 가야함. 그러면, 필요한 준비물 tno 번호가 필요함
-            self.location = "/todo/list"
+            self.location = "/todo/list?${pageRequestDTO.link}"
                 ,false})
 </script>
 

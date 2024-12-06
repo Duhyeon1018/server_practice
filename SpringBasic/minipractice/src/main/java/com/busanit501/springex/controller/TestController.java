@@ -2,6 +2,7 @@ package com.busanit501.springex.controller;
 
 import com.busanit501.springex.dto.PageRequestDTO;
 import com.busanit501.springex.dto.PageResponseDTO;
+
 import com.busanit501.springex.dto.TestDTO;
 import com.busanit501.springex.service.TestService;
 import lombok.RequiredArgsConstructor;
@@ -62,9 +63,9 @@ public class TestController {
     // BindingResult bindingResult : 검사 결과의 오류를 모아두는 임시 공간
     // RedirectAttributes redirectAttributes : 서버 -> 웹 , 데이터 전달하는 도구
     public String registerPost(@Valid TestDTO testDTO, BindingResult bindingResult,
-                               RedirectAttributes redirectAttributes) {
-        log.info("TodoController register post 로직처리: ");
-        log.info("TodoController register post  testDTO : " + testDTO);
+                             RedirectAttributes redirectAttributes) {
+        log.info("TestController register post 로직처리: ");
+        log.info("TestController register post  testDTO : " + testDTO);
 
         // 유효성 체크 -> 유효성 검증시, 통과 안된 원인이 있다면,
         if (bindingResult.hasErrors()) {
@@ -87,10 +88,18 @@ public class TestController {
     //model.addAttribute("todoDTO", todoDTO) 없이도,
     // 뷰에서 -> EL 표기법으로 바로 사용가능 ${todoDTO}
     @RequestMapping("/read")
-    public void read(Long tno, Model model) {
-        log.info("TodoController read :");
+    //  목록 -> 상세보기 페이지 이동시, PageRequestDTO 의 getLink 이용해서,
+    // page=7&size=10 정보를 전달 받았음.
+    // 그러면, 이 데이터 서버에서 이용할려면, 컨트롤러에서, 받는 매개변수가 필요해요.
+    // 자동으로 쿼리스트링으로 넘어온 데이터 자동으로 받기.
+    //
+    // 자동으로 받은 데이터를 다시, 자동으로 모델이 알아서, 화면에 전달함.
+    // read.jsp 화면에서, pageRequestDTO 이용가능.
+    public void read(Long tno, @Valid PageRequestDTO pageRequestDTO,
+                     Model model) {
+        log.info("TestController read :");
         TestDTO testDTO = testService.getOne(tno);
-        log.info("TodoController read 데이터 유무 확인 :" + testDTO);
+        log.info("TestController read 데이터 유무 확인 :" + testDTO);
         //데이터 탑재. 서버 -> 웹
         model.addAttribute("testDTO", testDTO);
 
@@ -99,7 +108,7 @@ public class TestController {
 
     // 수정 1) 폼 2) 로직 처리
     @RequestMapping("/update")
-    public void update(Long tno, Model model) {
+    public void update(Long tno,@Valid PageRequestDTO pageRequestDTO, Model model) {
         log.info("TestController update :");
         TestDTO testDTO = testService.getOne(tno);
         log.info("TestController update 데이터 유무 확인 :" + testDTO);
@@ -111,7 +120,7 @@ public class TestController {
     //수정 로직 처리
     @PostMapping("/update")
     // 수정할 항목을 모두 받아서, TodoDTO 담습니다. 여기에 tno 도 포함 시키기
-    public String updateLogic(@Valid TestDTO testDTO, BindingResult bindingResult,
+    public String updateLogic(@Valid TestDTO testDTO, BindingResult bindingResult, PageRequestDTO pageRequestDTO,
                               RedirectAttributes redirectAttributes) {
 
         // 유효성 체크 -> 유효성 검증시, 통과 안된 원인이 있다면,
@@ -119,6 +128,10 @@ public class TestController {
             log.info("has errors : 유효성 에러가 발생함.");
             // 1회용으로, 웹 브라우저에서, errors , 키로 조회 가능함. -> 뷰 ${errors}
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            //redirectAttributes 이용해서, 쿼리 스트링으로 전달.
+            redirectAttributes.addAttribute("tno",testDTO.getTno());
+            redirectAttributes.addAttribute("page",pageRequestDTO.getPage());
+            redirectAttributes.addAttribute("size",pageRequestDTO.getSize());
             return "redirect:/test/update";
         }
 
@@ -127,6 +140,9 @@ public class TestController {
         log.info("testDTO확인 finished의 변환 여부 확인. : " + testDTO);
 
         testService.update(testDTO);
+        // 쿼리 스트링으로 , 목록에 전달함.
+        redirectAttributes.addAttribute("page",pageRequestDTO.getPage());
+        redirectAttributes.addAttribute("size",pageRequestDTO.getSize());
         return "redirect:/test/list";
     }
 
@@ -134,8 +150,13 @@ public class TestController {
 
     // 삭제
     @PostMapping("/delete")
-    public String delete(Long tno) {
+    public String delete(Long tno, PageRequestDTO pageRequestDTO,
+                         RedirectAttributes redirectAttributes
+                         ) {
         testService.delete(tno);
+        // 쿼리 스트링으로 , 목록에 전달함.
+        redirectAttributes.addAttribute("page",pageRequestDTO.getPage());
+        redirectAttributes.addAttribute("size",pageRequestDTO.getSize());
         return "redirect:/test/list";
     }
 

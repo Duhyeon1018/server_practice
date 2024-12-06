@@ -31,8 +31,27 @@ public class PageRequestDTO {
     @Positive
     private int size = 10;
 
+    // 목록-> 상세보기 화면 이동시, 페이지 정보를 쿼리 스트링으로 전달하는 용도 멤버
+    private String link;
+
     // 데이터를 얼마나 스킵할지 정할 기능
     public int getSkip(){
         return (page - 1) * size;
     }
-}
+
+    // 페이징 정보를 쿼리 스트링 형식으로 반환 하는 메서드
+    // 예시 ) http://localhost:8080/todo/list&page=7&size=10
+    // page=7&size=10 , 문자열 생성해주는 기능.
+    public String getLink() {
+        if(link==null){
+            StringBuilder builder = new StringBuilder();
+            builder.append("page=" + this.page);
+            builder.append("&size=" + this.size);
+            // link = "page=7&size=10"
+            link = builder.toString();
+        }
+        return link;
+    }
+    }
+
+

@@ -59,6 +59,10 @@
                     <div class="card-body">
                         <%--                        Todo 입력 폼 여기에 작성--%>
                         <form action="/test/update" method="post">
+                            <%--                            수정/삭제 처리 후 페이징 정보를 전달하려면, --%>
+                            <%--                            input 히든으로 숨겨서, 페이지정보, 사이즈 정보를 전달. --%>
+                            <input type="hidden" name="page" value="${pageRequestDTO.page}">
+                            <input type="hidden" name="size" value="${pageRequestDTO.size}">
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Tno</span>
                                 <input type="text" name="tno" class="form-control" readonly
@@ -68,7 +72,7 @@
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Title</span>
                                 <input type="text" name="title" class="form-control" placeholder="제목을 입력해주세요"
-                                       value=<c:out value="${testDTO.title}"></c:out>>
+                                       value='<c:out value="${testDTO.title}"></c:out>'>
                             </div>
 
                             <div class="input-group mb-3">
@@ -89,7 +93,9 @@
                             </div>
                             <div class="my-4">
                                 <div class="float-end">
-                                    <button type="submit" class="btn btn-primary">적용하기</button>
+                                    <%--  방법1--%>
+                                    <%--<button type="submit" class="btn btn-primary">적용하기</button>--%>
+                                    <button type="button" class="btn btn-primary">적용하기</button>
                                     <button type="button" class="btn btn-danger">삭제하기</button>
                                     <button type="button" class="btn btn-secondary">목록가기</button>
                                 </div>
@@ -142,7 +148,7 @@
     document.querySelector(".btn-secondary").addEventListener("click",
         function (e) {
             // 수정폼으로 가야함. 그러면, 필요한 준비물 tno 번호가 필요함
-            self.location = "/test/list"
+            self.location = "/test/list?${pageRequestDTO.link}"
                 , false
         })
 
@@ -164,7 +170,25 @@
             // todoDTO 모든 멤버가 같이 전달됨.
             // tno, title, dueDate, finished, writer
             formObj.submit()
-        },false)
+        }, false)
+
+    // 방법2
+    //수정 로직 처리
+    document.querySelector(".btn-primary").addEventListener("click",
+        function (e) {
+            // 폼에서, 필요한  tno가져오기.
+            const formObj = document.querySelector("form")
+
+            // 기본 폼 방식으로 전달하는 기본 기능 제거 하고,
+            e.preventDefault()
+            e.stopPropagation() // 상위 태그로 전파 방지
+
+            formObj.action = "/test/update"
+            formObj.method = "post"
+            // todoDTO 모든 멤버가 같이 전달됨.
+            // tno, title, dueDate, finished, writer
+            formObj.submit()
+        }, false)
 </script>
 
 

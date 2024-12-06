@@ -76,8 +76,12 @@
 
                             <c:forEach items="${pageResponseDTO.dtoList}" var="dto">
                                 <tr>
-                                    <th scope="row"><c:out value="${dto.tno}"></c:out></th>
-                                    <td><a href="/test/read?tno=${dto.tno}" class="text-decoration-none">
+<%--                                    컨트롤러, 메서드의 파라미터 부분에, 일반 클래스 객체 타입이면, &ndash;%&gt;--%>
+                                        <%--                                    모델로 전달을 안해도, 자동으로 모델이 , 뷰에서 사용할수 있게 해줍니다.--%>
+                                        <%--                                    PageRequestDTO . -> pageRequestDTO, EL 표기법으로 사용하고, --%>
+                                        <%--                                    목적, 페이징의 정보를 달고, 상세보기 화면으로 전달. --%>
+                                        <%--                                    pageRequestDTO.link 이렇게 호출해도, pageRequestDTO.getLink 호출함--%>
+                                    <td><a href="/test/read?tno=${dto.tno}&${pageRequestDTO.link}" class="text-decoration-none">
                                         <c:out value="${dto.title}"></c:out>
                                     </a></td>
                                     <td><c:out value="${dto.writer}"></c:out></td>
