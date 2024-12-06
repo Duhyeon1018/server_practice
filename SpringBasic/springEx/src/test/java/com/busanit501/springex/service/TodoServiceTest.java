@@ -1,6 +1,5 @@
 package com.busanit501.springex.service;
 
-import com.busanit501.springex.domain.TodoVO;
 import com.busanit501.springex.dto.PageRequestDTO;
 import com.busanit501.springex.dto.PageResponseDTO;
 import com.busanit501.springex.dto.TodoDTO;
@@ -43,21 +42,21 @@ public class TodoServiceTest {
     @Test
     public void testGetAll() {
         List<TodoDTO> list = todoService.getAll();
-        for (TodoDTO todoDTO:list) {
+        for (TodoDTO todoDTO : list) {
             log.info("todoDTO : " + todoDTO);
         }
     } //
 
     @Test
     public void testGetOne() {
-        TodoDTO todoDTO = todoService.getOne(1L);
+        TodoDTO todoDTO = todoService.getOne(9L);
         log.info("todoDTO : " + todoDTO);
 
     } //
 
     @Test
     public void testDelete() {
-        todoService.delete(3L);
+        todoService.delete(8L);
     } //
 
     @Test
@@ -76,12 +75,17 @@ public class TodoServiceTest {
     @Test
     public void testPageList() {
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
-                .page(180)
+                .page(1)
                 .size(10)
+                .keyword("수정")
+                .types(new String[]{"t","w"})
+                .from(LocalDate.of(2024,12,05))
+                .to(LocalDate.of(2024,12,06))
+                .finished(true)
                 .build();
-        // PageResponseDTO, 안에는 , page , size, skip , start, end,
-        // prev, next, 페이징 된 목록 요소들
-        PageResponseDTO<TodoDTO> list = todoService.getListWithPage(pageRequestDTO);
+        // PageResponseDTO, 안에는 , page, size, skip, start,end,
+        // prev, next,  페이징된 목록 요소들
+        PageResponseDTO<TodoDTO> list = todoService.selectList(pageRequestDTO);
         list.getDtoList().stream().forEach(dto -> log.info("dto : " + dto));
         log.info("list total : " + list.getTotal());
         log.info("list prev : " + list.isPrev());
@@ -90,7 +94,5 @@ public class TodoServiceTest {
         log.info("list end : " + list.getEnd());
 
     }
-
-
 
 }//

@@ -30,23 +30,28 @@ public class TodoController {
     private final TodoService todoService;
 
 
-
     // localhost:8080/todo/list
     @RequestMapping("/list")
     // 기존 전체 페이지 출력 -> 페이징 처리된 목록 요소만 출력.
 //    public void list(Model model) {
-    public void list(@Valid PageRequestDTO pageRequestDTO ,
-                     BindingResult bindingResult,
-                     Model model) {
+    public String list(@Valid PageRequestDTO pageRequestDTO,
+                       BindingResult bindingResult,
+                       RedirectAttributes redirectAttributes,
+                       Model model) {
         log.info("TodoController list : 화면제공은 해당 메서드 명으로 제공함.");
-        if(bindingResult.hasErrors()) {
-            pageRequestDTO = PageRequestDTO.builder().build();
+        if (bindingResult.hasErrors()) {
+            log.info("has errors : 유효성 에러가 발생함.");
+            // 1회용으로, 웹 브라우저에서, errors , 키로 조회 가능함. -> 뷰 ${errors}
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            return "redirect:/todo/list";
         }
-        PageResponseDTO<TodoDTO> pageResponseDTO = todoService.getListWithPage(pageRequestDTO);
+        PageResponseDTO<TodoDTO> pageResponseDTO = todoService.selectList(pageRequestDTO);
         log.info("TodoController list 데이터 유무 확인 :" + pageResponseDTO);
         //데이터 탑재. 서버 -> 웹
         model.addAttribute("pageResponseDTO", pageResponseDTO);
-
+        redirectAttributes.addAttribute("page",pageRequestDTO.getPage());
+        redirectAttributes.addAttribute("size",pageRequestDTO.getSize());
+        return "/todo/list";
     }
 
     // localhost:8080/todo/register
@@ -94,43 +99,81 @@ public class TodoController {
     //
     // 자동으로 받은 데이터를 다시, 자동으로 모델이 알아서, 화면에 전달함.
     // read.jsp 화면에서, pageRequestDTO 이용가능.
-    public void read(Long tno, @Valid PageRequestDTO pageRequestDTO,
-                     Model model) {
+    public String read(Long tno, @Valid PageRequestDTO pageRequestDTO,
+                       BindingResult bindingResult,
+                       RedirectAttributes redirectAttributes,
+                       Model model) {
         log.info("TodoController read :");
+        if (bindingResult.hasErrors()) {
+            log.info("has errors : 유효성 에러가 발생함.");
+            // 1회용으로, 웹 브라우저에서, errors , 키로 조회 가능함. -> 뷰 ${errors}
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            redirectAttributes.addAttribute("tno", tno);
+            return "redirect:/todo/read";
+        }
         TodoDTO todoDTO = todoService.getOne(tno);
         log.info("TodoController read 데이터 유무 확인 :" + todoDTO);
         //데이터 탑재. 서버 -> 웹
         model.addAttribute("todoDTO", todoDTO);
+        redirectAttributes.addAttribute("page",pageRequestDTO.getPage());
+        redirectAttributes.addAttribute("size",pageRequestDTO.getSize());
+        return "/todo/read";
 
     }
 
 
     // 수정 1) 폼 2) 로직 처리
     @RequestMapping("/update")
-    public void update(Long tno,@Valid PageRequestDTO pageRequestDTO, Model model) {
+    public String update(Long tno, @Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult,
+                         RedirectAttributes redirectAttributes, Model model) {
         log.info("TodoController update :");
+        if (bindingResult.hasErrors()) {
+            log.info("has errors : 유효성 에러가 발생함.");
+            // 1회용으로, 웹 브라우저에서, errors , 키로 조회 가능함. -> 뷰 ${errors}
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            redirectAttributes.addAttribute("tno", tno);
+//            redirectAttributes.addAttribute("page",pageRequestDTO.getPage());
+//            redirectAttributes.addAttribute("size",pageRequestDTO.getSize());
+            return "redirect:/todo/update";
+        }
         TodoDTO todoDTO = todoService.getOne(tno);
         log.info("TodoController update 데이터 유무 확인 :" + todoDTO);
         //데이터 탑재. 서버 -> 웹
         model.addAttribute("todoDTO", todoDTO);
+        redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
+        redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
+        return "/todo/update";
 
     }
 
     //수정 로직 처리
     @PostMapping("/update")
     // 수정할 항목을 모두 받아서, TodoDTO 담습니다. 여기에 tno 도 포함 시키기
-    public String updateLogic(@Valid TodoDTO todoDTO, BindingResult bindingResult, PageRequestDTO pageRequestDTO,
+    public String updateLogic(@Valid TodoDTO todoDTO, BindingResult bindingResult,
+                              @Valid PageRequestDTO pageRequestDTO,
+                              BindingResult pageBindingResult,
                               RedirectAttributes redirectAttributes) {
 
         // 유효성 체크 -> 유효성 검증시, 통과 안된 원인이 있다면,
         if (bindingResult.hasErrors()) {
-            log.info("has errors : 유효성 에러가 발생함.");
+            log.info("has errors : 유효성 에러가 발생함. 검사 대상 :TodoDTO ");
             // 1회용으로, 웹 브라우저에서, errors , 키로 조회 가능함. -> 뷰 ${errors}
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             //redirectAttributes 이용해서, 쿼리 스트링으로 전달.
-            redirectAttributes.addAttribute("tno",todoDTO.getTno());
-            redirectAttributes.addAttribute("page",pageRequestDTO.getPage());
-            redirectAttributes.addAttribute("size",pageRequestDTO.getSize());
+            redirectAttributes.addAttribute("tno", todoDTO.getTno());
+            redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
+            redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
+            return "redirect:/todo/update";
+        }
+
+        if (pageBindingResult.hasErrors()) {
+            log.info("has errors : 유효성 에러가 발생함. 검사 대상 :PageRequestDTO ");
+            // 1회용으로, 웹 브라우저에서, errors , 키로 조회 가능함. -> 뷰 ${errors}
+            redirectAttributes.addFlashAttribute("errors2", pageBindingResult.getAllErrors());
+            //redirectAttributes 이용해서, 쿼리 스트링으로 전달.
+            redirectAttributes.addAttribute("tno", todoDTO.getTno());
+            redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
+            redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
             return "redirect:/todo/update";
         }
 
@@ -140,11 +183,10 @@ public class TodoController {
 
         todoService.update(todoDTO);
         // 쿼리 스트링으로 , 목록에 전달함.
-        redirectAttributes.addAttribute("page",pageRequestDTO.getPage());
-        redirectAttributes.addAttribute("size",pageRequestDTO.getSize());
+        redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
+        redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
         return "redirect:/todo/list";
     }
-
 
 
     // 삭제
@@ -154,8 +196,8 @@ public class TodoController {
     ) {
         todoService.delete(tno);
         // 쿼리 스트링으로 , 목록에 전달함.
-        redirectAttributes.addAttribute("page",pageRequestDTO.getPage());
-        redirectAttributes.addAttribute("size",pageRequestDTO.getSize());
+        redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
+        redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
         return "redirect:/todo/list";
     }
 

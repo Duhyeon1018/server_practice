@@ -133,6 +133,14 @@
     serverValidResult['${error.getField()}'] = '${error.defaultMessage}'
     </c:forEach>
     console.log(serverValidResult)
+
+    const serverValidResult2 = {};
+    // jstl , 반복문으로, 서버로부터 넘어온 여러 에러 종류가 많습니다.
+    //     하나씩 꺼내서, 출력하는 용도.,
+    <c:forEach items="${errors2}" var="error">
+    serverValidResult2['${error.getField()}'] = '${error.defaultMessage}'
+    </c:forEach>
+    console.log(serverValidResult2)
 </script>
 
 <%--목록가기 및 수정폼 가기 이벤트 리스너--%>

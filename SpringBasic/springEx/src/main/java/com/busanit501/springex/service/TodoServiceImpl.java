@@ -59,7 +59,7 @@ public class TodoServiceImpl implements TodoService{
     }
 
     @Override
-    public PageResponseDTO<TodoDTO> getListWithPage(PageRequestDTO pageRequestDTO) {
+    public PageResponseDTO<TodoDTO> selectList(PageRequestDTO pageRequestDTO) {
         // 준비물,
         // 서버 -> 웹 , 전달한 준비물 1) 전체갯수 2) 페이징 처리 todo 목록, 3) pageRequestDTO
 //        1) 전체갯수
@@ -83,6 +83,7 @@ public class TodoServiceImpl implements TodoService{
 
         return pageResponseDTO;
     }
+
 
 
 }

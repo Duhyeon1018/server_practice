@@ -15,7 +15,10 @@ public interface TodoService {
     // 준비물을 준비 해둠,
     // 웹 -> 서버 , 박스
     // 웹 <- 서버, 박스
-    PageResponseDTO<TodoDTO> getListWithPage(PageRequestDTO pageRequestDTO);
+//    PageResponseDTO<TodoDTO> getListWithPage(PageRequestDTO pageRequestDTO);
+
+    PageResponseDTO<TodoDTO> selectList(PageRequestDTO pageRequestDTO);
+
 
     TodoDTO getOne(Long tno);
 
