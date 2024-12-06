@@ -1,5 +1,7 @@
 package service;
 
+import com.busanit501.springex.dto.PageRequestDTO;
+import com.busanit501.springex.dto.PageResponseDTO;
 import com.busanit501.springex.dto.TestDTO;
 import com.busanit501.springex.service.TestService;
 import lombok.extern.log4j.Log4j2;
@@ -61,6 +63,24 @@ public class TestServiceTest {
                 .build();
 
         testService.update(testDTO);
+    }
+
+    @Test
+    public void testPageList() {
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(180)
+                .size(10)
+                .build();
+        // PageResponseDTO, 안에는 , page , size, skip , start, end,
+        // prev, next, 페이징 된 목록 요소들
+        PageResponseDTO<TestDTO> list = testService.getListWithPage(pageRequestDTO);
+        list.getDtoList().stream().forEach(dto -> log.info("dto : " + dto));
+        log.info("list total : " + list.getTotal());
+        log.info("list prev : " + list.isPrev());
+        log.info("list next : " + list.isNext());
+        log.info("list start : " + list.getStart());
+        log.info("list end : " + list.getEnd());
+
     }
 
 
