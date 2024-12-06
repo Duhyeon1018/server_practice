@@ -143,7 +143,9 @@ public class TestController {
         // 쿼리 스트링으로 , 목록에 전달함.
         redirectAttributes.addAttribute("page",pageRequestDTO.getPage());
         redirectAttributes.addAttribute("size",pageRequestDTO.getSize());
+        // 수정처리됐을 때 - > list 로 갈때 ? => 값은 얼마로 가는 역할을 함
         return "redirect:/test/list";
+
     }
 
 
