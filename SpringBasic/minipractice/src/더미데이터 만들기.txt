@@ -1,0 +1,7 @@
+# 더미 데이터 만들기.
+insert into tbl_todo (title, dueDate, writer)
+    (select title,dueDate,writer from tbl_todo);
+select count(tno) from tbl_todo;
+
+
+테이블에 맞춰서 만들어주기
