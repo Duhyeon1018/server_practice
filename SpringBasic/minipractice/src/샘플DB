@@ -23,3 +23,6 @@ update tbl_todo set finished = 0, title = '샘플1수정', dueDate = now() where
 
 delete from tbl_todo where tno > 5;
 delete from tbl_todo where tno = 11;
+
+
+
