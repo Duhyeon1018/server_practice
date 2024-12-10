@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="ko"
+      xmlns:th="www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base.html}">
+<!--공통 레이아웃의 경로를 설정-->
+<!--layout:decorate="~{layout/base.html}"-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
 <body>
+<div layout:fragment="content">
 <h1>ex1 기본 타임리프 문법 체크, 출력 </h1>
 <!--  /* th:text="${list}" */-->
 <h2 th:text="${list}"></h2>
@@ -38,6 +44,8 @@
     <ul>
         <li th:each="str , status: ${list}" >
             [[${status.index}]]  -- [[${status.odd}]] --[[${status.even}]]  [[${str}]]
+<!--            // status => 꺼내서 담는거  index = 0 , (개수)status =1 홀수 -> true, -->
+<!--            // status => 꺼내서 담는거  index = 0 , (개수)status =1 짝수 -> false, -->
         </li>
     </ul>
 
@@ -72,15 +80,18 @@
 <a th:href="@{/todo}">연습용 /todo 가기 </a>
 <h2>쿼리 스트링을 달고 전달하기. 타임리프, 자동으로 한글  URLEncoding 해줌.,</h2>
 <a th:href="@{/todo(name='강두현',age=28)}">연습용 /todo 가기쿼리스트링 </a>
+<!--쿼리스트링으로 들어가는 이유가 서버단에서 dto 랑 연결되어서 하나하나 꺼내쓸수도있고, 뭉태기로 꺼내쓸수도 있음. 그거 위해서-->
 <h2>같은 키에 대해서, 여러개의 값을 배열로 전달하는 예</h2>
 <!--  <a th:href="@{/hello(types=${{'이상용1','이상용2'}},age=30)}">연습용 /hello 가기쿼리스트링 </a>-->
 <br>
 <a th:href="@{/todo(types=${ {'맘','대','로'} }, age= 28)}">
     Go to / todo </a>
+</div>
 
 <script>
     const list = `[[${list}]]`
     console.log(list)
 </script>
+
 </body>
 </html>
