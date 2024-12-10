@@ -89,7 +89,7 @@ public class FoodRepositoryTests {
     @Test
     public void testPaging() {
 
-        Pageable pageable =  PageRequest.of(0, 10,
+        Pageable pageable =  PageRequest.of(1, 10,
                 Sort.by("bno").descending());
         Page<Food> result = foodRepository.findAll(pageable);
         log.info("result.getTotalElements()전체 갯수 :" +result.getTotalElements());
