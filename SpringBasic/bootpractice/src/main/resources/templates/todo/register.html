@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h1>서버로부터, 다양한 유형의 데이터를 화면에서 불러오기 연습</h1>
+strList, map,todoDTO
+<div th:text="${strList}">
+</div>
+map
+<div th:text="${map}">
+</div>
+sampleDTO
+<div th:text="${todoDTO}">
+</div>
+
+<h1>자바스크립트 내부에서, 서버로부터 받은 데이터 이용하기</h1>
+<script th:inline="javascript">
+  const list = [[${strList}]]
+  const map = [[${map}]]
+  const todoDTO = [[${todoDTO}]]
+
+  console.log(list)
+  console.log(map)
+  console.log(todoDTO)
+
+</script>
+</body>
+</html>

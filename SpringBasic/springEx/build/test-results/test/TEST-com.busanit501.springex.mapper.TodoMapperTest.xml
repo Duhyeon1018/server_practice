@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.busanit501.springex.mapper.TodoMapperTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-12-06T07:31:02" hostname="DESKTOP-FDCFACG" time="0.216">
+  <properties/>
+  <testcase name="testGetCount()" classname="com.busanit501.springex.mapper.TodoMapperTest" time="0.216"/>
+  <system-out><![CDATA[16:31:01.158 [Test worker] INFO  org.springframework.test.context.support.DefaultTestContextBootstrapper-Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+16:31:01.181 [Test worker] INFO  org.springframework.test.context.support.DefaultTestContextBootstrapper-Using TestExecutionListeners: [org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@6594402a, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@30f4b1a6, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@405325cf, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3e1162e7, org.springframework.test.context.transaction.TransactionalTestExecutionListener@79c3f01f, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@6c2f1700, org.springframework.test.context.event.EventPublishingTestExecutionListener@350b3a17]
+16:31:01.683 [Test worker] INFO  com.zaxxer.hikari.HikariDataSource-HikariPool-1 - Starting...
+16:31:01.809 [Test worker] INFO  com.zaxxer.hikari.pool.HikariPool-HikariPool-1 - Added connection org.mariadb.jdbc.Connection@2b037cfc
+16:31:01.811 [Test worker] INFO  com.zaxxer.hikari.HikariDataSource-HikariPool-1 - Start completed.
+16:31:02.257 [Test worker] DEBUG com.busanit501.springex.mapper.TodoMapper.getCount-==>  Preparing: select count(tno) from tbl_todo WHERE ( title like concat('%',?,'%') OR writer like concat('%',?,'%') ) and finished = 1 and dueDate between ? and ?
+16:31:02.298 [Test worker] DEBUG com.busanit501.springex.mapper.TodoMapper.getCount-==> Parameters: 수정(String), 수정(String), 2024-12-05(LocalDate), 2024-12-06(LocalDate)
+16:31:02.329 [Test worker] TRACE com.busanit501.springex.mapper.TodoMapper.getCount-<==    Columns: count(tno)
+16:31:02.329 [Test worker] TRACE com.busanit501.springex.mapper.TodoMapper.getCount-<==        Row: 2
+16:31:02.332 [Test worker] DEBUG com.busanit501.springex.mapper.TodoMapper.getCount-<==      Total: 1
+16:31:02.346 [Test worker] INFO  com.busanit501.springex.mapper.TodoMapperTest-total : 2
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>ex1 기본 타임리프 문법 체크, 출력 </h1>
+<!--  /* th:text="${list}" */-->
+<h2 th:text="${list}"></h2>
+<hr/>
+<!--  /* [[${list}]] */-->
+<h2>[[${list}]]</h2>
+
+<h1>변수 사용해서, 이용하기. </h1>
+<div th:with="num1 = ${10}, num2 = ${20}">
+    우리가 만든 변수 사용해보기 : <h2 th:text="${num1 + num2}"> </h2>
+    다른 방법으로 출력해보기(자바스크립 영역안에서도 이용가능)
+    : <h2>[[${num1 + num2}]]</h2>
+</div>
+
+<hr/>
+<!--  <th:each="변수명 : 목록">-->
+<h1>반복문 이용해보기. </h1>
+<div>
+    <ul>
+        <li th:each="str : ${list}" th:text="${str}"></li>
+    </ul>
+    <ul>
+        <li th:each="str : ${list}">[[${str}]]</li>
+    </ul>
+    <ul>
+        <th:block th:each="str : ${list}" >
+            <li> [[${str}]] </li>
+        </th:block >
+    </ul>
+
+    <ul>
+        <li th:each="str , status: ${list}" >
+            [[${status.index}]]  -- [[${status.odd}]] --[[${status.even}]]  [[${str}]]
+        </li>
+    </ul>
+
+
+    <ul>
+        <li th:each="str , status: ${list}" >
+            <span th:if="${status.odd}"> 홀수  [[${str}]]</span>
+            <span th:unless="${status.odd}"> 짝수  [[${str}]]</span>
+        </li>
+    </ul>
+
+    <ul>
+        <li th:each="str , status: ${list}" >
+            <span th:text="${status.odd} ? '홀수---'+${str} : '짝수---'+${str}"> </span>
+
+        </li>
+    </ul>
+
+    <ul>
+        <li th:each="str , status: ${list}" >
+            <th:block th:switch="${status.index % 3}">
+                <span th:case="0"> index:0  [[${str}]]</span>
+                <span th:case="1"> index:1  [[${str}]]</span>
+                <span th:case="2"> index:2  [[${str}]]</span>
+            </th:block>
+        </li>
+    </ul>
+</div>
+
+<hr/>
+<h1>링크 이동 </h1>
+<a th:href="@{/todo}">연습용 /todo 가기 </a>
+<h2>쿼리 스트링을 달고 전달하기. 타임리프, 자동으로 한글  URLEncoding 해줌.,</h2>
+<a th:href="@{/todo(name='강두현',age=28)}">연습용 /todo 가기쿼리스트링 </a>
+<h2>같은 키에 대해서, 여러개의 값을 배열로 전달하는 예</h2>
+<!--  <a th:href="@{/hello(types=${{'이상용1','이상용2'}},age=30)}">연습용 /hello 가기쿼리스트링 </a>-->
+<br>
+<a th:href="@{/todo(types=${ {'맘','대','로'} }, age= 28)}">
+    Go to / todo </a>
+
+<script>
+    const list = `[[${list}]]`
+    console.log(list)
+</script>
+</body>
+</html>
