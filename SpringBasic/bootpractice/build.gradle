@@ -69,7 +69,9 @@ sourceSets {
 
     main {
         java {
-            srcDirs = ["/src/main/java", "/build/generated"]
+            srcDirs = ["$projectDir/src/main/java", "$projectDir/build/generated"]
         }
     }
 }
+
+compileJava.dependsOn('clean')
