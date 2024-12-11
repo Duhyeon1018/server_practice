@@ -76,10 +76,13 @@ public class BoardSearchImpl extends QuerydslRepositorySupport
                 switch(type) {
                     case "t":
                         booleanBuilder.or(board.title.like("%" + keyword + "%"));
+                        break;
                     case "c":
                         booleanBuilder.or(board.content.like("%" + keyword + "%"));
+                        break;
                     case "w":
                         booleanBuilder.or(board.writer.like("%" + keyword + "%"));
+                        break;
                 } // switch
             } //and for
             //where 조건을 적용해보기
