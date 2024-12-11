@@ -56,7 +56,7 @@ public class FoodSearchImpl extends QuerydslRepositorySupport
 
         // 해당 조건의 데이터를 가져오기,
         List<Food> list = query.fetch();
-        // 해당 조건에 맞는 데이터의 갯수 조회.
+        // 해당 조건에 맞는 데이터의 갯수 조회. 검색된 결과에 대한 갯수
         long total = query.fetchCount();
         //
 
