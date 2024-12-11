@@ -68,9 +68,23 @@ PageRequest.of(0, 10, 오름,내림)
 
 
 
+쿼리 메소드 단점,
+예시) 제목, 키워드, 검색시, 게시글 번호 bno 역순 정렬해서 조회하는 방법
+Page<Board> TitlfindByeContainingOrderByBnoDesc(String keyword, Pageable pageable);
+결론, 복잡한 쿼리 작성에는 부적합, 간단한 쿼리 사용시 이용함.
 
-쿼리 메소드 연장, @Query , 조금 더 데이터베이스 언어에 가까운 구문을 사용.
-표준 SQL 구문이라서, 오라클, 마리아디비, 관계형 데이터베이스 구문을 이용.
+쿼리 메소드 보완 -> 연장, @Query ,
+조금 더 데이터베이스 언어에 가까운 구문을 사용.
+JPQL, 언어를 이용해서, 디비에 명령을 한다.
+
+예시)
+@Query("select b from Board db where b.title like concat
+('%':keyowrd,'%')")
+단점, 문자열 내부에, 문법 검사가 안됨.
+Page<Board> findKeyword(String keyword, Pageable pageable)
+
+표준 SQL 구문이라서,
+오라클, 마리아디비, 관계형 데이터베이스 구문을 이용.
 !
 JPA, ORM 기술을 사용하는 이유 -> 특정 데이터베이스 종속되지 않기 위해서.
 예시)
@@ -86,10 +100,45 @@ JPA, ORM 기술을 사용하는 이유 -> 특정 데이터베이스 종속되지
 @Query -> 문자열이라서, 변경이 안됨.
 select * from board b where b.name = #{id}
 
-QueryDSL -> 동적으로 개발이 가능하고, -> 자바 빌더 패턴 형식으로 작성하니,
+@Query 단점,
+예시) 다양한 검색 조건으로 sql 문장을 만든다고하면,
+검색, 필터 여러가지 조건을 이용해서, 작업한다면,
+해당 조건들마다, 각각의 정적인(고정) sql 다 만들어야함,
+
+QueryDSL
+-> 동적으로 개발이 가능하고,
+-> 자바 빌더 패턴 형식으로 작성하니,
 -> 컴파일러의 문법 검사 기능의 도움을 받을수 있음.
+예시)
+설치 후, 간단한 메서드 작성시 보여주기.
+public Page<Board> search(Pageable pageable) {
+    // Querydsl 이용하는 기본 문법
+    QBoard board = QBoard.board;
+    // select from board 하는 것과 비슷한 기능.
+    // query -> sql 관련 문장을, 자바 문법으로 표현하고 있다.
+    JPQLQuery<Board> query = from(board);
+
+    //BooleanBuilder를 이용한 조건절 추가 해보기.
+    BooleanBuilder booleanBuilder = new BooleanBuilder();
+    booleanBuilder.or(board.title.contains("1"));
+    booleanBuilder.or(board.content.contains("1"));
+
+    // where 조건절  where title like
+//    query.where(board.title.contains("1"));
+    // BooleanBuilder를 적용하기.
+    query.where(booleanBuilder);
+    // bno > 0 보다 큰 조건 넣을 경우
+    query.where(board.bno.gt(0L));
 
 
+    // 페이징 처리 적용하기.
+    this.getQuerydsl().applyPagination(pageable, query);
+
+    // 해당 조건에 맞는 데이터 가져오기
+    List<Board> list = query.fetch();
+    // 해당 조건에 맞는 데이터 갯수
+    long count = query.fetchCount();
+    return null;
 
 Querydsl 이용해보기.
 도구를 설치.

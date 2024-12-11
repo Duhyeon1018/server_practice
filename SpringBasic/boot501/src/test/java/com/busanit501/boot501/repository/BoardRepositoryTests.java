@@ -99,5 +99,67 @@ public class BoardRepositoryTests {
         log.info("result.getSize()  크기 :" +result.getSize());
     }
 
+    //방법 1, Query스트링
+    @Test
+    public void testQueryString() {
+        Pageable pageable =  PageRequest.of(1, 10,
+                Sort.by("bno").descending());
+        Page<Board> result = boardRepository.findByTitleContainingOrderByBnoDesc(
+                "3",pageable
+        );
+        log.info("result.getTotalElements()전체 갯수 :" +result.getTotalElements());
+        log.info("result.getTotalPages()총페이지등 :" +result.getTotalPages());
+        log.info("result.getContent() 페이징된 결과물 10개 :" +result.getContent());
+        log.info("result.getNumber() 현재 페이지 번호 :" +result.getNumber());
+        log.info("result.getSize() 크기  :" +result.getSize());
+    }
+
+    //방법 2, @Query 사용
+    @Test
+    public void testQueryAnotation() {
+        Pageable pageable =  PageRequest.of(1, 10,
+                Sort.by("bno").descending());
+        Page<Board> result = boardRepository.findByKeyword("3",pageable);
+
+        log.info("result.getTotalElements()전체 갯수 :" +result.getTotalElements());
+        log.info("result.getTotalPages()총페이지등 :" +result.getTotalPages());
+        log.info("result.getContent() 페이징된 결과물 10개 :" +result.getContent());
+        log.info("result.getNumber() 현재 페이지 번호 :" +result.getNumber());
+        log.info("result.getSize() 크기  :" +result.getSize());
+    }
+
+    // Querydsl
+    // 단계적으로, sql 문장만 일단 확인중. 아직 메서드 완성 안됨
+    // 연습용
+    @Test
+    public void testQuerydsl() {
+        Pageable pageable = PageRequest.of(1, 10,
+                Sort.by("bno").descending());
+        boardRepository.search(pageable);
+    }
+
+    @Test
+    public void testQuerydsl2() {
+        Pageable pageable = PageRequest.of(1, 10,
+                Sort.by("bno").descending());
+
+        // 전달할 준비물
+        // 1) 검색어, 2) 검색 유형
+        String keyword = "3";
+        String[] types = {"t","w","c"};
+
+        Page<Board> result = boardRepository.searchAll(types,keyword,pageable);
+
+
+        log.info("result.getTotalElements()전체 갯수 :" +result.getTotalElements());
+        log.info("result.getTotalPages()총페이지등 :" +result.getTotalPages());
+        log.info("result.getContent() 페이징된 결과물 10개 :" +result.getContent());
+        log.info("result.getNumber() 현재 페이지 번호 :" +result.getNumber());
+        log.info("result.getSize() 크기  :" +result.getSize());
+        log.info("result.hasNext() 다음  :" +result.hasNext());
+        log.info("result.hasPrevious() 이전  :" +result.hasPrevious());
+    }
+
+
 
 }
