@@ -81,7 +81,7 @@ public class TodoServiceTest {
                 .types(new String[]{"t","w"})
                 .from(LocalDate.of(2024,12,05))
                 .to(LocalDate.of(2024,12,06))
-                .finished(true)
+                .finished2(true)
                 .build();
         // PageResponseDTO, 안에는 , page, size, skip, start,end,
         // prev, next,  페이징된 목록 요소들

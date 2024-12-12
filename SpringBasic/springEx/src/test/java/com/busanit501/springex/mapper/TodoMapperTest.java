@@ -84,7 +84,7 @@ public class TodoMapperTest {
                 .types(new String[]{"t","w"})
                 .from(LocalDate.of(2024,12,05))
                 .to(LocalDate.of(2024,12,06))
-                .finished(true)
+                .finished2(true)
                 .build();
         // 검색, 필터 조건 sql 작성중
         // where , and 조건이 어떻게 sql 문장이 구성 되는지 각각의 과정을 보기.
@@ -103,7 +103,7 @@ public class TodoMapperTest {
                 .types(new String[]{"t","w"})
                 .from(LocalDate.of(2024,12,05))
                 .to(LocalDate.of(2024,12,06))
-                .finished(true)                .build();
+                .finished2(true)                .build();
         int total = todoMapper.getCount(pageRequestDTO);
         log.info("total : " + total);
     }
