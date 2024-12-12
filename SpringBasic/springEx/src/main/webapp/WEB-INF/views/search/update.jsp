@@ -57,8 +57,8 @@
                         Featured
                     </div>
                     <div class="card-body">
-                        <%--                        Todo 입력 폼 여기에 작성--%>
-                        <form action="//update" method="post">
+                        <%--                        Search 입력 폼 여기에 작성--%>
+                        <form action="/search/update" method="post">
                             <%--                            수정/삭제 처리 후 페이징 정보를 전달하려면, --%>
                             <%--                            input 히든으로 숨겨서, 페이지정보, 사이즈 정보를 전달. --%>
                             <input type="hidden" name="page" value="${pageRequestDTO.page}">
@@ -67,29 +67,29 @@
                                 <span class="input-group-text">Tno</span>
                                 <input type="text" name="tno" class="form-control" readonly
                                        value=
-                                <c:out value="${todoDTO.tno}"></c:out>>
+                                <c:out value="${searchDTO.tno}"></c:out>>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Title</span>
                                 <input type="text" name="title" class="form-control" placeholder="제목을 입력해주세요"
-                                       value='<c:out value="${todoDTO.title}"></c:out>'>
+                                       value='<c:out value="${searchDTO.title}"></c:out>'>
                             </div>
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text">DueDate</span>
                                 <input type="date" name="dueDate" class="form-control"
-                                       value=<c:out value="${todoDTO.dueDate}"></c:out>>
+                                       value=<c:out value="${searchDTO.dueDate}"></c:out>>
                             </div>
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Writer</span>
                                 <input type="text" name="writer" class="form-control" readonly
-                                       value=<c:out value="${todoDTO.writer}"></c:out>>
+                                       value=<c:out value="${searchDTO.writer}"></c:out>>
                             </div>
                             <div class="input-group mb-3">
                                 <label class="form-check-label">Finished &nbsp</label>
                                 <input type="checkbox" name="finished" class="form-check-input"
-                                ${todoDTO.finished ? "checked" : ""}>
+                                ${searchDTO.finished ? "checked" : ""}>
                             </div>
                             <div class="my-4">
                                 <div class="float-end">
@@ -101,7 +101,7 @@
                                 </div>
                             </div>
                         </form>
-                        <%--                        Todo 입력 폼 여기에 작성--%>
+                        <%--                        Search 입력 폼 여기에 작성--%>
 
                     </div>
                 </div>
@@ -149,14 +149,14 @@
     document.querySelector(".btn-primary").addEventListener("click",
         function (e) {
             // 수정폼으로 가야함. 그러면, 필요한 준비물 tno 번호가 필요함
-            self.location = "/todo/update?tno=" +${todoDTO.tno}
+            self.location = "/search/update?tno=" +${searchDTO.tno}
                 , false
         })
     // 목록
     document.querySelector(".btn-secondary").addEventListener("click",
         function (e) {
             // 수정폼으로 가야함. 그러면, 필요한 준비물 tno 번호가 필요함
-            self.location = "/todo/list?${pageRequestDTO.link}"
+            self.location = "/search/list?${pageRequestDTO.link}"
                 , false
         })
 
@@ -171,11 +171,12 @@
             e.stopPropagation() // 상위 태그로 전파 방지
 
             // 삭제시 포스트로, tno 번호를 전달하는 방식.
-            // formObj , 원래 action: /todo/update
+            // formObj , 원래 action: /search/update
             // 속성을 변경 가능해서, 임시로, 삭제 url 변경.
-            formObj.action = "/todo/delete"
+            // 삭제 후에도, 검색 내역을 유지하기.
+            formObj.action = "/search/delete?${pageRequestDTO.link}"
             formObj.method = "post"
-            // todoDTO 모든 멤버가 같이 전달됨.
+            // searchDTO 모든 멤버가 같이 전달됨.
             // tno, title, dueDate, finished, writer
             formObj.submit()
         }, false)
@@ -191,9 +192,9 @@
             e.preventDefault()
             e.stopPropagation() // 상위 태그로 전파 방지
 
-            formObj.action = "/todo/update"
+            formObj.action = "/search/update?${pageRequestDTO.link}"
             formObj.method = "post"
-            // todoDTO 모든 멤버가 같이 전달됨.
+            // searchDTO 모든 멤버가 같이 전달됨.
             // tno, title, dueDate, finished, writer
             formObj.submit()
         }, false)

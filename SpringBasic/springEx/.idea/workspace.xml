@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76d20b5f-c92b-49c5-b3a0-7d1233264981" name="변경" comment="241206 5,6,7교시">
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +60,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Duhyeon1018&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Duhyeon1018/server_practice.git&quot;,
+    &quot;accountId&quot;: &quot;00b36279-4d3f-4dc5-ae1d-bb598e90d2d5&quot;
+  }
+}</component>
   <component name="KotlinCodeInsightWorkspaceSettings">
     <option name="optimizeImportsOnTheFly" value="true" />
   </component>
@@ -70,40 +82,50 @@
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2q5rPvgddsMhpBDOZVPNmi8MYRi" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.SampleTest.testService1.executor": "Run",
-    "Gradle.TimeMapperTest.executor": "Run",
-    "Gradle.TimeMapperTest.testGetTime.executor": "Run",
-    "Gradle.TodoMapperTest.testDelete.executor": "Run",
-    "Gradle.TodoMapperTest.testGetCount.executor": "Run",
-    "Gradle.TodoMapperTest.testGetTime.executor": "Run",
-    "Gradle.TodoMapperTest.testInsert.executor": "Run",
-    "Gradle.TodoMapperTest.testSelectAll.executor": "Run",
-    "Gradle.TodoMapperTest.testSelectAllWithPage.executor": "Run",
-    "Gradle.TodoMapperTest.testSelectOne.executor": "Run",
-    "Gradle.TodoMapperTest.testUpdate.executor": "Run",
-    "Gradle.TodoServiceTest.testDelete.executor": "Run",
-    "Gradle.TodoServiceTest.testGetAll.executor": "Run",
-    "Gradle.TodoServiceTest.testGetOne.executor": "Run",
-    "Gradle.TodoServiceTest.testPageList.executor": "Run",
-    "Gradle.TodoServiceTest.testRegister.executor": "Run",
-    "Gradle.TodoServiceTest.testUpdate.executor": "Run",
-    "Gradle.springEx 빌드.executor": "Run",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Tomcat 서버.tomcat.executor": "Run",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/server_practice/SpringBasic/springEx/src/main/webapp/WEB-INF/views/todo",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "editor.preferences.import"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.SampleTest.testService1.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TimeMapperTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TimeMapperTest.testGetTime.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TodoMapperTest.testDelete.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TodoMapperTest.testGetCount.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TodoMapperTest.testGetTime.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TodoMapperTest.testInsert.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TodoMapperTest.testSelectAll.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TodoMapperTest.testSelectAllWithPage.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TodoMapperTest.testSelectOne.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TodoMapperTest.testUpdate.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TodoServiceTest.testDelete.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TodoServiceTest.testGetAll.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TodoServiceTest.testGetOne.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TodoServiceTest.testPageList.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TodoServiceTest.testRegister.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TodoServiceTest.testUpdate.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.springEx 빌드.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Tomcat 서버.tomcat.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/server_practice/SpringBasic/springEx&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.import&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\server_practice\SpringBasic\springEx\src\main\webapp\WEB-INF\views\todo" />
@@ -347,6 +369,15 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task id="LOCAL-00001" summary="241202 1,2,3,4교시">
       <option name="closed" value="true" />
@@ -460,8 +491,19 @@
       <option name="project" value="LOCAL" />
       <updated>1733470714863</updated>
     </task>
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="76d20b5f-c92b-49c5-b3a0-7d1233264981" name="변경" comment="241206 5,6,7교시" />
+      <created>1733963257431</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1733963257431</updated>
+      <workItem from="1733963259515" duration="712000" />
+    </task>
     <option name="localTasksCounter" value="15" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
