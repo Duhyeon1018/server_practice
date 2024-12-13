@@ -19,7 +19,7 @@ public interface BoardRepository extends JpaRepository<Board, Long> , BoardSearc
     //쿼리스트링 ,방법1
     Page<Board> findByTitleContainingOrderByBnoDesc(String title, Pageable pageable);
 
-    //@Query , 방법2 전달. JPQL 문법으로, 작성하고,
+    //@Query , 방법2 전달. JPQL 문법으로, 작성하고,dialect 방언,
     // 모든 디비(마리아다비, 오라클, 마이SQL, PostGre 관계형 디비)에 적용이 됨.
     @Query("select b from Board b where b.title like concat('%',:keyword,'%')")
     Page<Board> findByKeyword(String keyword, Pageable pageable);

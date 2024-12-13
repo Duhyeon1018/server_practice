@@ -34,9 +34,8 @@ public class Board extends BaseEntity { // 전역으로 만든, 베이스 엔티
     // 해당 엔티티 클래스는, 각 인스턴스가, 해당 디비의 각 행 데이터와 동일함.
     // 그래서, 바로 수정 불가하고, 조회만 하게하고,
     // 만약, 수정이 필요하다면, 메서드로 안전하게 내용만 변경함.
-    public void changeTitleContent(String title, String content) {
+    public void changeTitleConent(String title, String content) {
         this.title = title;
         this.content = content;
     }
 }
-
