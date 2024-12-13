@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76d20b5f-c92b-49c5-b3a0-7d1233264981" name="변경" comment="241206 5,6,7교시">
+    <list default="true" id="76d20b5f-c92b-49c5-b3a0-7d1233264981" name="변경" comment="241212 spring legacy 시험">
+      <change beforePath="$PROJECT_DIR$/../boot501/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../boot501/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -75,6 +76,10 @@
   <component name="KotlinCodeInsightWorkspaceSettings">
     <option name="optimizeImportsOnTheFly" value="true" />
   </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="false" />
@@ -92,6 +97,11 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Gradle.SampleTest.testService1.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SearchServiceTest.testDelete.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SearchServiceTest.testGetAll.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SearchServiceTest.testGetOne.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SearchServiceTest.testPageList.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SearchServiceTest.testRegister.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.TimeMapperTest.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.TimeMapperTest.testGetTime.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.TodoMapperTest.testDelete.executor&quot;: &quot;Run&quot;,
@@ -108,6 +118,7 @@
     &quot;Gradle.TodoServiceTest.testPageList.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.TodoServiceTest.testRegister.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.TodoServiceTest.testUpdate.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.springEx [clean].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.springEx 빌드.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
@@ -116,7 +127,7 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/server_practice/SpringBasic/springEx&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/server_practice/SpringBasic/boot501&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -128,21 +139,25 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\server_practice\SpringBasic\springEx\src\main\webapp\WEB-INF\views\search" />
+      <recent name="C:\server_practice\SpringBasic\springEx\src\main\resources\mappers" />
       <recent name="C:\server_practice\SpringBasic\springEx\src\main\webapp\WEB-INF\views\todo" />
       <recent name="C:\server_practice\SpringBasic\springEx\src" />
       <recent name="C:\server_practice\SpringBasic\springEx\src\main\webapp\WEB-INF\views" />
-      <recent name="C:\server_practice\SpringBasic\springEx\src\main\webapp\resources\test" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\server_practice\SpringBasic\springEx\src" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.busanit501.springex.service" />
-      <recent name="com.busanit501.springex.sample.mapper" />
+      <recent name="com.busanit501.springex.mapper" />
+      <recent name="com.busanit501.springex.dto" />
+      <recent name="com.busanit501.springex.domain" />
+      <recent name="com.busanit501.springex.controller" />
     </key>
   </component>
-  <component name="RunManager" selected="Tomcat 서버.tomcat">
-    <configuration name="TodoMapperTest.testGetCount" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.springEx [clean]">
+    <configuration name="SearchServiceTest.testDelete" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -155,7 +170,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.busanit501.springex.mapper.TodoMapperTest.testGetCount&quot;" />
+            <option value="&quot;com.busanit501.springex.service.SearchServiceTest.testDelete&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -166,7 +181,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="TodoMapperTest.testSelectAllWithPage" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="SearchServiceTest.testGetAll" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -179,7 +194,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.busanit501.springex.mapper.TodoMapperTest.testSelectAllWithPage&quot;" />
+            <option value="&quot;com.busanit501.springex.service.SearchServiceTest.testGetAll&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -190,7 +205,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="TodoMapperTest.testUpdate" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="SearchServiceTest.testGetOne" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -203,7 +218,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.busanit501.springex.mapper.TodoMapperTest.testUpdate&quot;" />
+            <option value="&quot;com.busanit501.springex.service.SearchServiceTest.testGetOne&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -214,7 +229,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="TodoServiceTest.testPageList" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="SearchServiceTest.testPageList" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -227,7 +242,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.busanit501.springex.service.TodoServiceTest.testPageList&quot;" />
+            <option value="&quot;com.busanit501.springex.service.SearchServiceTest.testPageList&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -238,28 +253,26 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="TodoServiceTest.testUpdate" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="springEx [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;com.busanit501.springex.service.TodoServiceTest.testUpdate&quot;" />
+            <option value="clean" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
+      <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
     <configuration name="tomcat" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.97" ALTERNATIVE_JRE_ENABLED="false">
@@ -352,20 +365,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Gradle.TodoMapperTest.testGetCount" />
-      <item itemvalue="Gradle.TodoMapperTest.testSelectAllWithPage" />
-      <item itemvalue="Gradle.TodoMapperTest.testUpdate" />
-      <item itemvalue="Gradle.TodoServiceTest.testPageList" />
-      <item itemvalue="Gradle.TodoServiceTest.testUpdate" />
+      <item itemvalue="Gradle.SearchServiceTest.testDelete" />
+      <item itemvalue="Gradle.SearchServiceTest.testGetAll" />
+      <item itemvalue="Gradle.SearchServiceTest.testGetOne" />
+      <item itemvalue="Gradle.SearchServiceTest.testPageList" />
+      <item itemvalue="Gradle.springEx [clean]" />
       <item itemvalue="Tomcat 서버.tomcat" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.TodoMapperTest.testGetCount" />
-        <item itemvalue="Gradle.TodoMapperTest.testSelectAllWithPage" />
-        <item itemvalue="Gradle.TodoServiceTest.testPageList" />
-        <item itemvalue="Gradle.TodoServiceTest.testUpdate" />
-        <item itemvalue="Gradle.TodoMapperTest.testUpdate" />
+        <item itemvalue="Gradle.springEx [clean]" />
+        <item itemvalue="Gradle.SearchServiceTest.testPageList" />
+        <item itemvalue="Gradle.SearchServiceTest.testDelete" />
+        <item itemvalue="Gradle.SearchServiceTest.testGetOne" />
+        <item itemvalue="Gradle.SearchServiceTest.testGetAll" />
       </list>
     </recent_temporary>
   </component>
@@ -498,8 +511,26 @@
       <option name="presentableId" value="Default" />
       <updated>1733963257431</updated>
       <workItem from="1733963259515" duration="712000" />
+      <workItem from="1733974206661" duration="7407000" />
+      <workItem from="1734049100873" duration="11000" />
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="241212 spring legacy 시험">
+      <option name="closed" value="true" />
+      <created>1733978240910</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1733978240910</updated>
+    </task>
+    <task id="LOCAL-00016" summary="241212 spring legacy 시험">
+      <option name="closed" value="true" />
+      <created>1733982227541</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1733982227541</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -530,7 +561,8 @@
     <MESSAGE value="241205 4교시" />
     <MESSAGE value="241205 5,6,7교시" />
     <MESSAGE value="241206 5,6,7교시" />
-    <option name="LAST_COMMIT_MESSAGE" value="241206 5,6,7교시" />
+    <MESSAGE value="241212 spring legacy 시험" />
+    <option name="LAST_COMMIT_MESSAGE" value="241212 spring legacy 시험" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
