@@ -27,6 +27,12 @@ public class SampleController {
         model.addAttribute("msg2", "어제 부터 부트 작업");
     }
 
+    @GetMapping("/index")
+    public void index(Model model) {
+        List<String> list = Arrays.asList("a", "b", "c");
+        model.addAttribute("list", list);
+    }
+
     @GetMapping("/ex/ex1")
     public void ex1(Model model) {
         List<String> list = Arrays.asList("a", "b", "c");

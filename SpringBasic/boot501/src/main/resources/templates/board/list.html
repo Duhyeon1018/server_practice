@@ -16,7 +16,7 @@
                 <div class="card-body">
                     <h5 class="card-title">검색 및 필터 </h5>
                     <form action="/board/list" method="get">
-                        <input type="hidden" name="size" value="${responseDTO.size}">
+                        <!--                        <input type="hidden" name="size" value="${responseDTO.size}">-->
                         <!--                        수정 부분, 검색시, 제목:t, 작성자:w, 내용:c , 선택하는 화면-->
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -101,11 +101,18 @@
                             </li>
 
                             <!--                            페이지 번호 표시, 10개 임의로 표기-->
-                            <th:block th:each="i:${#numbers.sequence(responseDTO.start,responseDTO.end)}">
+                            <!--                            <th:block th:each="i:${#numbers.sequence(responseDTO.start,responseDTO.end)}">-->
 
-                                <li th:class="${responseDTO.page == i }?'page-item active':'page-item'">
-                                    <a class="page-link" data-num="${i}" href="#">[[${i}]]</a></li>
-                            </th:block>
+                            <!--                                <li th:class="${responseDTO.page == i }?'page-item active':'page-item'">-->
+                            <!--                                    <a class="page-link" data-num="${i}" href="#">[[${i}]]</a></li>-->
+                            <!--                            </th:block>-->
+
+                            <th:blcok th:each="i:${#numbers.sequence(responseDTO.start,responseDTO.end)}">
+                                <li th:class="${responseDTO.page == i}?'page-item active':'page-item'">
+                                    <a class="page-link"
+                                       th:data-num="${i}">[[${i}]]</a>
+                                </li>
+                            </th:blcok>
 
                             <li class="page-item" th:if="${responseDTO.next}">
                                 <a class="page-link" th:data-num="${responseDTO.end + 1}">Next</a>
@@ -129,6 +136,30 @@
 <!--자바스크립트 추가하는 영역-->
 <script layout:fragment="javascript" th:inline="javascript">
 
+    // 페이징 이동 이벤트 처리.
+    document.querySelector(".pagination").addEventListener("click",
+        function (e) {
+            e.preventDefault()
+            e.stopPropagation()
+            // a 태그에 접근 할려면, 해당 요소 선택자 필요.
+            const target = e.target
+            //  a 태그 인경우에 이벤트 리스너 동작을하고,
+            // a 태그 가 아니면, 이벤트 처리 안함.
+            if (target.tagName !== "A") {
+                return
+            }
+            const num = target.getAttribute("data-num")
+
+            // 백틱, 숫자 키보드 1번 왼쪽에 보면.
+            //  기존 페이지 이동해서,
+            // 폼의 정보를 이용해서 이동.
+            const formObj = document.querySelector("form")
+            // 자바스크립트에서, 백틱 안에서, 문자열 구현하기가 쉽다.
+            formObj.innerHTML += `<input type="hidden" name="page" value="${num}">`
+            formObj.submit()
+
+
+        }, false)
 
 </script>
 
