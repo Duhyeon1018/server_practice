@@ -6,7 +6,7 @@ import com.busanit501.bootpractice.dto.PageRequestDTO;
 import com.busanit501.bootpractice.dto.PageResponseDTO;
 
 public interface FoodService {
-    Long register(FoodDTO foodDTO);
+    Long register(FoodDTO foodDTO); //Long 반환타입
     FoodDTO readOne(Long bno);
     void update(FoodDTO foodDTO);
     void delete(Long bno);
