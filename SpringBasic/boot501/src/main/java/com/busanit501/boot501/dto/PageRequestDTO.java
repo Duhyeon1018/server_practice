@@ -62,9 +62,11 @@ public class PageRequestDTO {
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
-                link = builder.toString();
+//                오류수정
+//                link = builder.toString();
             } //if
 
+            link = builder.toString();
         } //if
         return link;
     }

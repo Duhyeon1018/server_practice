@@ -6,6 +6,44 @@
 >
 <body>
 <div layout:fragment="content">
+    <!--    라이브 데모 모달-->
+    <!-- Button trigger modal -->
+    <!--    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">-->
+    <!--        Launch demo modal-->
+    <!--    </button>-->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5"
+                        th:if="${resultType == 'register'}">
+                        글쓰기 성공
+                    </h1>
+                    <h1 class="modal-title fs-5"
+                        th:if="${resultType == 'update'}">
+                        글쓰기 수정
+                    </h1>
+                    <h1 class="modal-title fs-5"
+                        th:if="${resultType == 'delete'}">
+                        글쓰기 삭제
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    [[${result}]]
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    라이브 데모 모달-->
+
     <!--    검색화면 추가-->
 
     <div class="row mt-3">
@@ -82,12 +120,17 @@
                             <th scope="col">RegDate</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <!--                        ?page=1&type=t&keyword=3-->
+                        <tbody th:with="link = ${pageRequestDTO.link}">
                         <tr th:each="dto:${responseDTO.dtoList}">
                             <th scope="row">
                                 [[${dto.bno}]]
                             </th>
-                            <td>[[${dto.title}]]</td>
+                            <td>
+                                <a th:href="|@{/board/read(bno=${dto.bno})}&${link}|">
+                                    [[${dto.title}]]
+                                </a>
+                            </td>
                             <td>[[${dto.writer}]]</td>
                             <td>[[${#temporals.format(dto.regDate,'yyyy-MM-dd HH:mm:ss')}]]</td>
                         </tr>
@@ -160,6 +203,17 @@
 
 
         }, false)
+
+    //글작성, 수정, 삭제 여부를 목록 화면에서 , 모달창에 결과 화면 출력
+    const result = [[${result}]]
+
+    // alert -> 모달창으로 교체 작업.
+    const modal = new bootstrap.Modal(document.querySelector(".modal"))
+
+    if(result){
+        // alert(result)
+        modal.show()
+    }
 
 </script>
 
