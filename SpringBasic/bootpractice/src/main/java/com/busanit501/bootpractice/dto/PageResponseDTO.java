@@ -28,7 +28,7 @@ public class PageResponseDTO<E> {
     // 생성자를 특정이름으로 직접 정의해서, 호출해서 사용함.
     @Builder(builderMethodName = "withAll")
     public PageResponseDTO(List<E> dtoList, int total,
-                           PageRequestDTO pageRequestDTO) {
+                           com.busanit501.bootpractice.dto.PageRequestDTO pageRequestDTO) {
         // 기본 유효성,
         if(total <= 0){
             return;

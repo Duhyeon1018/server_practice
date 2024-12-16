@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.coyote.Request;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -61,9 +62,11 @@ public class PageRequestDTO {
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
-                link = builder.toString();
+//                오류수정
+//                link = builder.toString();
             } //if
 
+            link = builder.toString();
         } //if
         return link;
     }
