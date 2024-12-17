@@ -1,6 +1,7 @@
 package com.busanit501.boot501.repository.search;
 
 import com.busanit501.boot501.domain.Board;
+import com.busanit501.boot501.dto.BoardListReplyCountDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -13,4 +14,7 @@ public interface BoardSearch {
     //Pageable -> 페이징 하기위한 재료, 현재페이지, 페이지 보여줄갯수,정렬 << 세개가 담아져있음. 그래서 알아서 처리
     // Page -> 1)페이징 된 결과물 10개 2) 전체갯수 3) 현재페이지 등 정보조회가능
     Page<Board> searchAll(String[] types, String keyword, Pageable pageable);
+
+    // 댓글 갯수를 포함한 목록, 작업 1
+    Page<BoardListReplyCountDTO> searchWithReplyCount(String[] types, String keyword, Pageable pageable);
 }

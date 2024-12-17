@@ -13,6 +13,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 @Controller
 @Log4j2
 @RequestMapping("/board")
@@ -86,12 +89,15 @@ public class BoardController {
 
         log.info("BoardController updatePost post  pageRequestDTO : " + pageRequestDTO);
 
+        //키워드 한글 처리.
+        String encodedKeyword = URLEncoder.encode(keyword2, StandardCharsets.UTF_8);
+
         // 유효성 체크 -> 유효성 검증시, 통과 안된 원인이 있다면,
         if (bindingResult.hasErrors()) {
             log.info("has errors : 유효성 에러가 발생함.");
             // 1회용으로, 웹 브라우저에서, errors , 키로 조회 가능함. -> 뷰 ${errors}
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-            return "redirect:/board/update?bno="+boardDTO.getBno()+"&keyword="+keyword2+"&page="+page2+"&type="+type2;
+            return "redirect:/board/update?bno="+boardDTO.getBno()+"&keyword="+encodedKeyword+"&page="+page2+"&type="+type2;
         }
         //검사가 통과가 되고, 정상 입력
         boardService.update(boardDTO);
@@ -101,7 +107,7 @@ public class BoardController {
         redirectAttributes.addFlashAttribute("result", boardDTO.getBno());
         redirectAttributes.addFlashAttribute("resultType", "update");
 
-        return "redirect:/board/read?bno="+boardDTO.getBno()+"&keyword="+keyword2+"&page="+page2+"&type="+type2;
+        return "redirect:/board/read?bno="+boardDTO.getBno()+"&keyword="+encodedKeyword+"&page="+page2+"&type="+type2;
 
     }
 
