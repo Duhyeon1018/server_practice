@@ -60,7 +60,35 @@
         </div>
     </div>
 
+    <!--    1)댓글의 목록, 2)댓글 추가 버튼 , 3)페이징 번호 화면 작업-->
+    <div class="row mt-3">
+        <!--        부트 스트랩에서, 전체 가로 영역을 12 등분으로 나눔.-->
+        <!--        col-md-12 : 전체를 차지-->
+        <div class="col-md-12">
+            <!--            2)댓글 추가 버튼 : addReplyBtn -->
+            <div class="my-4">
+                <button class="btn btn-info addReplyBtn">댓글 등록</button>
+            </div>
+            <!--            1)댓글의 목록 : replyList -->
+            <ul class="list-group replyList">
 
+            </ul>
+        </div>
+
+        <!--        댓글의 페이지 번호 출력-->
+        <div class="row mt-3">
+            <div class="col">
+                <ul class="pagination replyPaging">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--axios 도구 , 비동기 식으로 처리하는 문법을 마치 동기화된 코드 처럼 이용 가능 문법,-->
+    <!--async , await 키워드를 이용해서, 비동기 처리를 조금 더 쉽게 동기화 코드처럼 이용가능-->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/js/reply.js"></script>
 </div>
 <!--끝 나는 부분 layout:fragment="content"-->
 
@@ -74,6 +102,35 @@
             // 수정폼으로 가야함. 그러면, 필요한 준비물 tno 번호가 필요함
             self.location = "/board/update?bno="+[[${dto.bno}]]+"&"+[[${pageRequestDTO.link}]]
                 ,false})
+
+    // 비동기 함수, 테스트 작업.
+    const bno = [[${dto.bno}]]
+    // 함수 실행 해보기.
+    get(bno)
+
+    // 함수 정의,
+    // 주의사항, reply.js , 통신 이용해서, 데이터를 전달하는 업무, 백
+    // read.html,  받아온 데이터를 업데이트를 하는 역할. 화면 그려주는 역할. 프론트  react.jsx
+
+    function  printReplies(page,size,goLast) {
+        // 비동기 함수를 호출하게 되면, 호출된 데이터의 성공 여부에 따라서,
+        // 성공시, then  절 받아서 처리,
+        // 실패시, catch 절 받아서 처리.
+        getList({bno,page,size,goLast})
+            .then(
+                data => console.log(data)
+            )
+            .catch(e => {
+                    console.error(e)
+                }
+            )
+    }
+
+    // 함수 실행해보기.
+    printReplies(1,10)
+
+
+
 
 </script>
 

@@ -2,15 +2,23 @@ package com.busanit501.boot501.service;
 
 import com.busanit501.boot501.domain.Board;
 import com.busanit501.boot501.domain.Reply;
+import com.busanit501.boot501.dto.PageRequestDTO;
+import com.busanit501.boot501.dto.PageResponseDTO;
 import com.busanit501.boot501.dto.ReplyDTO;
 import com.busanit501.boot501.repository.BoardRepository;
 import com.busanit501.boot501.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -56,5 +64,28 @@ public class ReplyServiceImpl implements ReplyService {
     @Override
     public void delete(Long rno) {
         replyRepository.deleteById(rno);
+    }
+
+    @Override
+    public PageResponseDTO<ReplyDTO> listWithReply(Long bno, PageRequestDTO pageRequestDTO) {
+        Pageable pageable = PageRequest.of(pageRequestDTO.getPage()-1 <= 0 ? 0:pageRequestDTO.getPage()-1,
+                pageRequestDTO.getSize(), Sort.by("rno").ascending());
+        Page<Reply> result = replyRepository.listOfBoard(bno, pageable);
+
+        List<ReplyDTO>  dtoList = result.getContent().stream()
+                .map(reply -> {
+                    ReplyDTO replyDTO = modelMapper.map(reply, ReplyDTO.class);
+                    replyDTO.setBno(reply.getBoard().getBno());
+                    return replyDTO;
+                })
+                .collect(Collectors.toList());
+
+        PageResponseDTO<ReplyDTO> pageResponseDTO = PageResponseDTO.<ReplyDTO>withAll()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(dtoList)
+                .total((int)result.getTotalElements())
+                .build();
+
+        return pageResponseDTO;
     }
 }
