@@ -38,4 +38,14 @@ public class Reply extends BaseEntity {
 
     private String replier;
 
+    public void changeFood(Food food) {
+        this.food = food;
+    }
+
+    // 수정 시, 내용만 변경하기위해서 사용함, 세터 안쓰는 이유 => 불변성을 유지하기 위해서
+    public void changeReplyText(String replyText) {
+        this.replyText = replyText;
+    }
+
+
 }

@@ -1,6 +1,6 @@
-package com.busanit501.boot501.service;
+package com.busanit501.bootpractice.service;
 
-import com.busanit501.boot501.dto.ReplyDTO;
+import com.busanit501.bootpractice.dto.ReplyDTO;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +16,12 @@ public class ReplyServiceTests {
     private ReplyService replyService;
 
     @Test
-
     public void testRegisterReply() {
         // 더미 데이터 필요, 임시 DTO 생성.
         ReplyDTO replyDTO = ReplyDTO.builder()
                 .replyText("오늘 점심 뭐 먹지?")
                 .replier("이상용")
-                .bno(98L)
+                .bno(301L)
                 .regDate(LocalDateTime.now())
                 .build();
 
@@ -46,9 +45,9 @@ public class ReplyServiceTests {
         // 예를 들어서 각자 디비에 따라서 조금씩 달라지는거 확인
         ReplyDTO replyDTO = ReplyDTO.builder()
                 .replyText("수정 테스트 내용 변경만 확인해주세요.")
-                .replier("이상용")
-                .rno(2L)
-                .bno(99L)
+                .replier("강두현")
+                .rno(15L)
+                .bno(301L)
                 .regDate(LocalDateTime.now())
                 .build();
 
@@ -60,6 +59,6 @@ public class ReplyServiceTests {
 
     @Test
     public void testDeleteReply() {
-        replyService.delete(6L);
+        replyService.delete(15L);
     }
 }
