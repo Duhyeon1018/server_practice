@@ -1,6 +1,7 @@
 package com.busanit501.bootpractice.controller;
 
 import com.busanit501.bootpractice.dto.FoodDTO;
+import com.busanit501.bootpractice.dto.FoodListReplyCountDTO;
 import com.busanit501.bootpractice.dto.PageRequestDTO;
 import com.busanit501.bootpractice.dto.PageResponseDTO;
 import com.busanit501.bootpractice.service.FoodService;
@@ -25,7 +26,9 @@ public class FoodController {
     public void list(PageRequestDTO pageRequestDTO, Model model ) { // 서버 -> 화면으로 전달
         // 서비스 이용해서, 데이터베이스 목록 페이징 처리해서 가져오기.
         // 앞단 화면에서, 검색어:keyword 내용, 페이징 내용(page = 1) 담아서 전달.
-        PageResponseDTO<FoodDTO> responseDTO = foodService.list(pageRequestDTO);
+        //        PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
+        // 교체 작업, 수정1 //기존 list 메서드를 -> 댓글개수를 포함한 메서드로 교체
+        PageResponseDTO<FoodListReplyCountDTO> responseDTO = foodService.listWithReplyCount(pageRequestDTO);
         log.info("pageRequestDTO 의 getLink 조사 : " + pageRequestDTO.getLink());
         model.addAttribute("responseDTO", responseDTO);
     }

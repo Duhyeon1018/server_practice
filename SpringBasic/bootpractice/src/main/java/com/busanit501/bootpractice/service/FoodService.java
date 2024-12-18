@@ -2,6 +2,7 @@ package com.busanit501.bootpractice.service;
 
 
 import com.busanit501.bootpractice.dto.FoodDTO;
+import com.busanit501.bootpractice.dto.FoodListReplyCountDTO;
 import com.busanit501.bootpractice.dto.PageRequestDTO;
 import com.busanit501.bootpractice.dto.PageResponseDTO;
 
@@ -11,4 +12,5 @@ public interface FoodService {
     void update(FoodDTO foodDTO);
     void delete(Long bno);
     PageResponseDTO<FoodDTO> list(PageRequestDTO pageRequestDTO);
+    PageResponseDTO<FoodListReplyCountDTO> listWithReplyCount(PageRequestDTO pageRequestDTO);
 }

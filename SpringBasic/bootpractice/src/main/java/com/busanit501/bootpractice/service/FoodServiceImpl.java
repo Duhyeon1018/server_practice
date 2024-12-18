@@ -1,8 +1,8 @@
 package com.busanit501.bootpractice.service;
 
-
 import com.busanit501.bootpractice.domain.Food;
 import com.busanit501.bootpractice.dto.FoodDTO;
+import com.busanit501.bootpractice.dto.FoodListReplyCountDTO;
 import com.busanit501.bootpractice.dto.PageRequestDTO;
 import com.busanit501.bootpractice.dto.PageResponseDTO;
 import com.busanit501.bootpractice.repository.FoodRepository;
@@ -41,7 +41,7 @@ public class FoodServiceImpl implements FoodService {
     @Override
     public FoodDTO readOne(Long bno) {
         Optional<Food> result = foodRepository.findById(bno);
-        Food food= result.orElseThrow();
+        Food food = result.orElseThrow();
         FoodDTO dto = modelMapper.map(food, FoodDTO.class);
         return dto;
     }
@@ -50,13 +50,9 @@ public class FoodServiceImpl implements FoodService {
     public void update(FoodDTO foodDTO) {
         Optional<Food> result = foodRepository.findById(foodDTO.getBno());
         Food food = result.orElseThrow();
-        food.changeTitleContent(foodDTO.getTitle(),foodDTO.getContent());
-       foodRepository.save(food);
+        food.changeTitleContent(foodDTO.getTitle(), foodDTO.getContent());
+        foodRepository.save(food);
     }
-
-    //public void update(FoodDTO foodDTO) {
-    // Food food = modelMapper.map(foodDTO, Food.class);
-    // foodRepository.save(food)} ==> 전체수정하는 방법
 
     @Override
     public void delete(Long bno) {
@@ -69,12 +65,12 @@ public class FoodServiceImpl implements FoodService {
         String keyword = pageRequestDTO.getKeyword();
         Pageable pageable = pageRequestDTO.getPageable("bno");
 
-        Page<Food> result = foodRepository.searchAll(types,keyword,pageable);
+        Page<Food> result = foodRepository.searchAll(types, keyword, pageable);
         // list -> PageResponseDTO 타입으로 변경 필요.
 
         // result.getContent() -> 페이징된 엔티티 클래스 목록
         List<FoodDTO> dtoList = result.getContent().stream()
-                .map(food ->modelMapper.map(food, FoodDTO.class))
+                .map(food -> modelMapper.map(food, FoodDTO.class))
                 .collect(Collectors.toList());
 
 
@@ -85,4 +81,31 @@ public class FoodServiceImpl implements FoodService {
                 .build();
 
     } // list
+
+    @Override
+    public PageResponseDTO<FoodListReplyCountDTO> listWithReplyCount(PageRequestDTO pageRequestDTO) {
+
+        String[] types = pageRequestDTO.getTypes();
+        String keyword = pageRequestDTO.getKeyword();
+        Pageable pageable = pageRequestDTO.getPageable("bno");
+
+        // 수정1
+        Page<FoodListReplyCountDTO> result = foodRepository.searchWithReplyCount(types,keyword,pageable);
+        // list -> PageResponseDTO 타입으로 변경 필요.
+
+        // result.getContent() -> 페이징된 엔티티 클래스 목록
+        // Projection.bean 이용해서, 데이터 조회시 , 바로 dto 변환을 다했음.
+        // 변환 작업이 필요가 없음.
+//        List<FoodDTO> dtoList = result.getContent().stream()
+//                .map(food ->modelMapper.map(food, FoodDTO.class))
+//                .collect(Collectors.toList());
+
+
+        return PageResponseDTO.<FoodListReplyCountDTO>withAll()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(result.getContent())
+                .total((int) result.getTotalElements())
+                .build();
+    }
 }
+

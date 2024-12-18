@@ -1,6 +1,7 @@
 package com.busanit501.bootpractice.repository.search;
 
 import com.busanit501.bootpractice.domain.Food;
+import com.busanit501.bootpractice.dto.FoodListReplyCountDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -13,4 +14,12 @@ public interface FoodSearch {
     // Pageable -> 페이징 하기 위한 재료. 현재 페이지, 페이지 보여줄 갯수, 정렬
     // Page -> 1) 페이징된 결과물 10개 2) 전체 갯수 3) 현제 페이지, 등. 정보 조회 가능.
     Page<Food> searchAll(String[] types, String keyword, Pageable pageable);
+
+    // 댓글 갯수를 포함한 목록,
+    // 목록, food 조회를 함,
+    // 단점, food , reply 쪽으로 연관관계 설정 안되어 있음.
+    // 즉 조회를 못해요, 자바로 인스턴스로 ,
+    // 그래서, 2개의 테이블을 연결 조인(외부조인? 댓글 null 일수도 있기때문에)
+    Page<FoodListReplyCountDTO> searchWithReplyCount(String[] types, String keyword, Pageable pageable);
+
 }

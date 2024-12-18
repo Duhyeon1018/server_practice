@@ -70,6 +70,11 @@ dependencies {
 //    implementation group: 'org.hibernate.validator', name: 'hibernate-validator', version: '6.2.1.Final'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '3.4.0'
 
+    // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+//	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.5.0'
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.7.0'
+
+
 
 }
 
