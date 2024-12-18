@@ -120,11 +120,18 @@ public class BoardSearchImpl extends QuerydslRepositorySupport
     // 내부 조인(널 표기 안했음.),
     // 외부 조인,(널 표기 같이 해야함.) ,
     public Page<BoardListReplyCountDTO> searchWithReplyCount(String[] types, String keyword, Pageable pageable) {
-        QBoard board = QBoard.board;
+        QBoard board = QBoard.board; // 자동으로 만들어놓은 QBoard에 board란 static 에 접근하는 방법이
+        // .찍고 class 명 적어줌 됨(JAVA 기본문법)
         QReply reply = QReply.reply;
         JPQLQuery<Board> query = from(board);// select * from board
         // 조인 설정 , 게시글에서 댓글에 포함된 게시글 번호와 , 게시글 번호 일치
         query.leftJoin(reply).on(reply.board.bno.eq(board.bno));
+        // bno title content writer , rno bno replyText replier
+        // 121  test  test   lsy      1   121   댓글     댓글작성자
+        // 121  test  test   lsy      2   121   댓글2     댓글작성자2
+        // bno 기준으로 나누겠습니다
+        // 120  test3  test3   lsy3   3   120   댓글33     댓글작성자33
+        // 120  test3  test3   lsy3   4   120   댓글44     댓글작성자44
         // groupby 설정,
         query.groupBy(board);
 
@@ -153,17 +160,32 @@ public class BoardSearchImpl extends QuerydslRepositorySupport
         // 위에서 사용한 검색 조건 , 재사용하기
 
         // 모델 맵핑 작업, DTO <-> 엔티티 클래스간에 형변환을 해야함.
+        // 기존에는 서비스계층에서 dto-entity간에 변환을 함
+
+        // query-> 조인이 된 상태이고, 그룹별로 분할된 상태.
+        // 그런데, Querydsl에서 데이터를 조회 후, 바로 형변환을 지원해줌
+        // Projections.bean 기능을 이용하면 데이터를 조회후에 바로 형변환을 해줌
+        // modelMapper.map(boardDTO, Board.class) << projection.bean 이랑 똑같음
         JPQLQuery<BoardListReplyCountDTO> dtoQuery =
-                query.select(Projections.bean(BoardListReplyCountDTO.class,
+                query.select(Projections.bean(BoardListReplyCountDTO.class, //주체는 board(query)
+                        //여기 query(board)에서는 join 도 되어있고 , group으로 이미 나누어져있음
                         board.bno,
                         board.title,
                         board.content,
                         board.writer,
                         board.regDate,
-                        reply.count().as("replyCount")));
+                        reply.count().as("replyCount"))); // 위에있는 reply의 카운트를 셈
+        //그럼 board에서도 조회, reply에서도 조회
+        // 그래서 reply count에 2가 찍히는거임
 
         // 페이징 조건, 재사용, dto<-> 엔티티 형변환 할 때 사용했던 쿼리로 변
         // query -> dtoQuery
+        // dtoQuery형태가
+        // bno title content writer , replyCount
+        // 121  test   test    lsy        2
+        // 120  test3  test3   lsy3       2
+
+        // 위에 게시글에 댓글 개수를 포함한 결과에 페이징 처리를 적용하는 코드
         this.getQuerydsl().applyPagination(pageable, dtoQuery);
 
         // =============================================

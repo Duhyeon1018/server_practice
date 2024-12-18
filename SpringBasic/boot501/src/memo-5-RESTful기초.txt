@@ -1,3 +1,8 @@
+1차 웹 프로젝트 구조,
+1) 프론트(타임리프) + 백엔드(스프링부트,jpa 또는 마이바티스)+ 마리아디비(또는 오라클)
+2) MVC 패턴 + 일부 기능(RESTful Controller)
+
+
 현재까지,
 서버가 한번에
 1)화면도 그리고,
@@ -12,12 +17,16 @@ Controller 표현.
 
 화면이 존재,
 기존에 API 명세서
-예) /board/list
-예) /board/register
-예) /board/read
-예) /board/udpate
-예) /board/delete
+예) /board/list, get
+예) /board/register, get,post
+예) /board/read, get
+예) /board/udpate, get, post -> put
+예) /board/delete, post -> delete
 
+초반에, 주로 사용했던,
+get, post 2가지 형식을
+연장해서
+get, post, put, delete, patch
 
 화면이 없네...!!!
 변경 API 명세서
@@ -43,7 +52,13 @@ Controller 표현.
 설치 방법,
 1)
 // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
-implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.5.0'
+이슈가 있어서, 버전 변경 2.7.0
+implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.7.0'
+이슈 발생시,
+방법)
+1) 그래들, 빌드 -> 클린,
+2)other -> 컴파일 자바 클릭 ,
+3) 서버 재시작 수동하기
 
 2) 설정 클래스
 @Configuration

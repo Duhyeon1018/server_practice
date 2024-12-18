@@ -16,5 +16,9 @@ public interface BoardSearch {
     Page<Board> searchAll(String[] types, String keyword, Pageable pageable);
 
     // 댓글 갯수를 포함한 목록, 작업 1
+    // 목록 , board를 조회를 함.
+    // 단점= board 같은 경우는 reply 쪽으로 연관관계가 설정이 안되어있음
+    // 즉, JAVA INSTANCE로 조회를 못함
+    // 그래서 두개의 테이블을 연결 조인(외부조인 함. 왜? 댓글이 null 일수도 있기 때문)
     Page<BoardListReplyCountDTO> searchWithReplyCount(String[] types, String keyword, Pageable pageable);
 }

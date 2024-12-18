@@ -1,6 +1,7 @@
 package com.busanit501.boot501.controller;
 
 import com.busanit501.boot501.dto.BoardDTO;
+import com.busanit501.boot501.dto.BoardListReplyCountDTO;
 import com.busanit501.boot501.dto.PageRequestDTO;
 import com.busanit501.boot501.dto.PageResponseDTO;
 import com.busanit501.boot501.service.BoardService;
@@ -28,7 +29,9 @@ public class BoardController {
     public void list(PageRequestDTO pageRequestDTO, Model model ) {
         // 서비스 이용해서, 데이터베이스 목록 페이징 처리해서 가져오기.
         // 앞단 화면에서, 검색어:keyword 내용, 페이징 내용(page = 1) 담아서 전달.
-        PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
+        //        PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
+        // 교체 작업, 수정1
+        PageResponseDTO<BoardListReplyCountDTO> responseDTO = boardService.listWithReplyCount(pageRequestDTO);
         log.info("pageRequestDTO 의 getLink 조사 : " + pageRequestDTO.getLink());
         model.addAttribute("responseDTO", responseDTO);
     }

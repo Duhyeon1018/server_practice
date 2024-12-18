@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 // DB 자체에서 부하가 걸려서 효율적이지 못함. 가급적 너무 많은 복합키 쓰지 않도록 주의
 
 @Table(name = "Reply", indexes = {
-        @Index(name = "idx_reply_board_bno", columnList = "board_bno")
+        @Index(name = "idx_reply_board_bno", columnList = "board_bno") //풀스캔 하기 싫기 때문에
 })
 @Getter
 @Builder
