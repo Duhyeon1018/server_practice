@@ -70,6 +70,46 @@ public class ReplyController {
         return responseDTO;
     }
 
+    // 댓글 하나 조회, 상세보기
+    // localhost:8080/replies/{rno:댓글번호}
+    @Tag(name = "댓글 하나 조회",description = "댓글 하나 조회 RESTful get방식")
+    @GetMapping(value ="/{rno}")
+    public ReplyDTO getRead(@PathVariable("rno") Long rno)
+    {
+        log.info(" ReplyController getRead: rno={}", rno);
+        ReplyDTO replyDTO = replyService.readOne(rno);
+        return replyDTO;
+    }
+
+    // 댓글 수정, 로직처리
+    // localhost:8080/replies/{rno:댓글번호}
+    @Tag(name = "댓글 수정 로직처리",description = "댓글 수정 로직처리 RESTful get방식")
+    @PutMapping(value ="/{rno}")
+    public Map<String,Long> updateReply(
+            @Valid @RequestBody ReplyDTO replyDTO,
+            BindingResult bindingResult,
+            @PathVariable("rno") Long rno) throws BindException {
+        if (bindingResult.hasErrors()) {
+            throw new BindException(bindingResult);
+        }
+        log.info(" ReplyController updateReply: replyDTO={}", replyDTO);
+        log.info(" ReplyController updateReply: rno={}", rno);
+        replyService.update(replyDTO);
+        Map<String,Long> map = Map.of("rno",rno);
+        return map;
+    }
+
+    // 댓글 삭제, 로직처리
+    // localhost:8080/replies/{rno:댓글번호}
+    @Tag(name = "댓글 삭제 로직처리",description = "댓글 삭제 로직처리 RESTful get방식")
+    @DeleteMapping(value ="/{rno}")
+    public Map<String,Long> deleteReply(
+            @PathVariable("rno") Long rno) throws BindException {
+        replyService.delete(rno);
+        Map<String,Long> map = Map.of("rno",rno);
+        return map;
+    }
+
 }
 
 

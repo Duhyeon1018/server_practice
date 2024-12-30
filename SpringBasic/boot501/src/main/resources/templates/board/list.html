@@ -111,6 +111,7 @@
                         Board List
                     </h5>
 
+                    <!--                    작업중-->
                     <table class="table">
                         <thead>
                         <tr>
@@ -130,10 +131,17 @@
                                 <a th:href="|@{/board/read(bno=${dto.bno})}&${link}|">
                                     [[${dto.title}]]
                                 </a>
+                                <!--                                댓글 갯수-->
                                 <span class="badge progress-bar-success"
                                       style="background-color: crimson">
                                     [[${dto.replyCount}]]
                                 </span>
+                                <!--                                첨부된 이미지 출력 하기-->
+                                <div th:if="${dto.boardImages != null && dto.boardImages.size()>0}">
+                                    <img style="width: 100px" th:each="boardImage: ${dto.boardImages}"
+                                         th:src="|/view/s_${boardImage.uuid}_${boardImage.fileName}|">
+
+                                </div>
                             </td>
                             <td>[[${dto.writer}]]</td>
                             <td>[[${#temporals.format(dto.regDate,'yyyy-MM-dd HH:mm:ss')}]]</td>
