@@ -1,5 +1,6 @@
 package com.busanit501.boot501.config;
 
+import com.busanit501.boot501.security.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -12,6 +13,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import javax.sql.DataSource;
 
 @Log4j2
 @Configuration
@@ -22,6 +27,11 @@ import org.springframework.security.web.SecurityFilterChain;
 // 이전 문법 ://@EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableMethodSecurity()
 public class CustomSecurityConfig {
+    // 자동 로그인 순서1,
+    private final DataSource dataSource;
+    // 시큐리티에서 로그인 처리를 담당하는 도구
+    private final CustomUserDetailsService customUserDetailsService;
+    // 자동 로그인 순서1,
 
     //순서1,
     // 인증, 인가 관련 구체적인 설정은 여기 메서드에서 작성
@@ -63,22 +73,24 @@ public class CustomSecurityConfig {
                     authorizeRequests.requestMatchers
                             ("/board/list","/board/register").authenticated();
                     authorizeRequests.requestMatchers
-                            ("/admin/**","/board/update").hasRole("ADMIN");
+                            ("/admin/**").hasRole("ADMIN");
                     //위의 3가지 조건을 제외한 나머지 모든 접근은 인증이 되어야 접근이 가능함.
-                    authorizeRequests.anyRequest().authenticated();
+                    authorizeRequests
+                            .anyRequest().authenticated();
+                    //           .anyRequest().permitAll();
                 }
 
         );
 
         // 순서 8, 로그아웃 설정.
         // 로그 아웃 설정.
-        // 작업진행순서
+        // 작업 진행 순서,
         // 웹브라우저 -> http://localhost:8080/member/logout
-        // 시큐리티가 동작을 하고, 로그아웃 처리를 자동으로 하고
-        // 로그아웃 성공 시, 성공 후 이동할 페이지로 이동시킴.
-        // ?logout, 파라미터
+        // 시큐리티가 동작을하고, 로그아웃 처리를 자동으로 하고,
+        // 로그 아웃 성공시, 성공 후 이동할 페이지로 이동 시킴.
+        // ?logout , 파라미터,
         // /member/login?logout
-        // 멤버컨트롤러,
+        // 멤버 컨트롤러,
         //
         http.logout(
                 logout -> logout.logoutUrl("/member/logout")
@@ -86,9 +98,30 @@ public class CustomSecurityConfig {
 
         );
 
+        // 자동 로그인 순서2,
+        http.rememberMe(
+                httpSecurityRememberMeConfigurer
+                        -> httpSecurityRememberMeConfigurer.key("12345678")
+                        .tokenRepository(persistentTokenRepository()) // 밑에서, 토큰 설정 추가해야해서,
+                        .userDetailsService(customUserDetailsService)
+                        .tokenValiditySeconds(60*60*24*30) //30일
+        );
+
+        // 자동 로그인 순서2,
+
 
         return http.build();
     }
+
+    // 자동 로그인 순서3,
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        // 시큐리에서 정의 해둔 구현체
+        JdbcTokenRepositoryImpl repo = new JdbcTokenRepositoryImpl();
+        repo.setDataSource(dataSource);
+        return repo;
+    }
+    // 자동 로그인 순서3,
 
 
     // 순서2,

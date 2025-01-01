@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="ko"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="www.thymeleaf.org"
       layout:decorate="~{layout/base.html}"
@@ -17,45 +18,48 @@
                     <h5 class="card-title">
                         Board Read
                     </h5>
-                    <!--                    <form method="post" action="/board/update">-->
-                    <div class="mb-3">
-                        <label for="title" class="form-control">제목</label>
-                        <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요"
-                               th:value="${dto.title}" readonly>
-                    </div>
-                    <div class="mb-3">
-                        <label for="content" class="form-control">내용</label>
-                        <textarea type="text" class="form-control col-sm-5" id="content"
-                                  name="content" rows="5" placeholder="내용을 입력해주세요"
-                                  readonly>[[${dto.content}]]</textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="writer" class="form-control">작성자</label>
-                        <input type="text" class="form-control" id="writer" name="writer"
-                               placeholder="지금은 직접 작성자를 입력해주세요, 로그인 후 로그인 유저가 자동으로 탑재됨."
-                               th:value="${dto.writer}" readonly>
-                    </div>
-                    <div class="mb-3">
-                        <label for="regDate" class="form-control">등록시간</label>
-                        <input type="text" class="form-control" id="regDate" name="regDate"
-                               th:value="${#temporals.format(dto.regDate,'yyyy-MM-dd HH:mm:ss')}" readonly>
-                    </div>
-                    <div class="mb-3">
-                        <label for="modDate" class="form-control">수정시간</label>
-                        <input type="text" class="form-control" id="modDate" name="modDate"
-                               th:value="${#temporals.format(dto.modDate,'yyyy-MM-dd HH:mm:ss')}" readonly>
-                    </div>
-                    <div class="mb-3" th:with="link = ${pageRequestDTO.link}">
-                        <!--                            수정폼 가기 방법2-->
-                        <!--                            <a th:href="|@{/board/update}?bno=${dto.bno}&${link}|">-->
-                        <button type="button" class="btn btn-primary submitBtn">수정하기</button>
-                        <!--                            </a>-->
-                        <a th:href="|@{/board/list}?${link}|">
-                            <button type="button" class="btn btn-danger">목록가기</button>
-                        </a>
-                    </div>
+                    <form method="post" action="/board/update">
+                        <div class="mb-3">
+                            <label for="title" class="form-control">제목</label>
+                            <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요"
+                                   th:value="${dto.title}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="content" class="form-control">내용</label>
+                            <textarea type="text" class="form-control col-sm-5" id="content"
+                                      name="content" rows="5" placeholder="내용을 입력해주세요"
+                                      readonly>[[${dto.content}]]</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="writer" class="form-control">작성자</label>
+                            <input type="text" class="form-control" id="writer" name="writer"
+                                   placeholder="지금은 직접 작성자를 입력해주세요, 로그인 후 로그인 유저가 자동으로 탑재됨."
+                                   th:value="${dto.writer}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="regDate" class="form-control">등록시간</label>
+                            <input type="text" class="form-control" id="regDate" name="regDate"
+                                   th:value="${#temporals.format(dto.regDate,'yyyy-MM-dd HH:mm:ss')}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modDate" class="form-control">수정시간</label>
+                            <input type="text" class="form-control" id="modDate" name="modDate"
+                                   th:value="${#temporals.format(dto.modDate,'yyyy-MM-dd HH:mm:ss')}" readonly>
+                        </div>
+                        <div class="mb-3" th:with="link = ${pageRequestDTO.link}">
+                            <!--                            수정폼 가기 방법2-->
+                            <a th:href="|@{/board/update}?bno=${dto.bno}&${link}|">
+                                <!--                    게시글 작성자와 로그인한 유저가 같은 경우에만, 수정하기 버튼 활성화하기.-->
+                                <button type="button" th:if="${user != null && user.Username == dto.writer}"
+                                        class="btn btn-primary submitBtn">수정하기
+                                </button>
+                            </a>
+                            <a th:href="|@{/board/list}?${link}|">
+                                <button type="button" class="btn btn-danger">목록가기</button>
+                            </a>
+                        </div>
 
-                    <!--                    </form>-->
+                    </form>
                 </div>
             </div>
         </div>
@@ -75,16 +79,19 @@
                 <!-- li  태그를 innerHTML 를 이용해서, 요소를 추가할 예정, 자바스크립트 문법으로-->
             </ul>
         </div>
+    </div>
 
-        <!--        댓글의 페이지 번호 출력-->
-        <div class="row mt-3">
-            <div class="col">
+    <!--        댓글의 페이지 번호 출력-->
+    <div class="row mt-3">
+        <div class="col">
+            <div class="paging-container">
                 <ul class="pagination replyPaging">
 
                 </ul>
             </div>
         </div>
     </div>
+
 
     <!--    댓글 등록 모달창1-->
     <div class="modal fade registerModal" tabindex="-1"
@@ -103,7 +110,7 @@
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text">작성자</span>
-                        <input type="text" class="form-control replyer">
+                        <input type="text" th:value="${user.Username}" class="form-control replyer" readonly>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -137,6 +144,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary updateCloseBtn" data-bs-dismiss="modal">취소</button>
+
                     <button type="button" class="btn btn-primary updateBtn">댓글 수정</button>
                     <button type="button" class="btn btn-danger deleteBtn">댓글 삭제</button>
                 </div>
@@ -168,18 +176,18 @@
 <script layout:fragment="javascript" th:inline="javascript">
 
     // 수정폼으로 이동하기.
-    document.querySelector(".submitBtn").addEventListener("click",
-        function (e) {
-            // 수정폼으로 가야함. 그러면, 필요한 준비물 tno 번호가 필요함
-            self.location = "/board/update?bno=" + [[${dto.bno}]] + "&" + [[${pageRequestDTO.link}]]
-                , false
-        })
+    // 이부분 오류 발생해서, 수정하기,
+    // document.querySelector(".submitBtn").addEventListener("click",function (e) {
+    //         // 수정폼으로 가야함. 그러면, 필요한 준비물 tno 번호가 필요함
+    //         self.location = "/board/update?bno=" + [[${dto.bno}]] + "&" + [[${pageRequestDTO.link}]]
+    //             , false
+    //     })
 
     // 비동기 함수, 테스트 작업.
     // 순서2, 현재 게시글의  bno 번호를 알아야 함
     const bno = [[${dto.bno}]]
     // 함수 실행 해보기.
-    //
+    console.log("bno : " + bno)
     console.log("get 함수 실행1: ")
     get(bno)
 
@@ -331,7 +339,7 @@
                 alert("댓글 작성 번호: " + result.rno)
                 registerModal.hide()
                 replyText.value = ''
-                replyer.value = ''
+                // replyer.value = ''
                 // 댓글 작성후, 마지막 댓글 페이지 이동
                 printReplies(1, 10, true)
             }
