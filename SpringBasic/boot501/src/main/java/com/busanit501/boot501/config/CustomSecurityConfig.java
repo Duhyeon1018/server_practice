@@ -1,6 +1,7 @@
 package com.busanit501.boot501.config;
 
 import com.busanit501.boot501.security.CustomUserDetailsService;
+import com.busanit501.boot501.security.handler.Custom403Handler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
@@ -69,11 +71,11 @@ public class CustomSecurityConfig {
         http.authorizeHttpRequests(
                 authorizeRequests -> {
                     authorizeRequests.requestMatchers
-                            ("/css/**", "/js/**","/member/login").permitAll();
+                            ("/css/**", "/js/**","/member/login","/member/join", "/board/list").permitAll();
                     authorizeRequests.requestMatchers
-                            ("/board/list","/board/register").authenticated();
+                            ("/board/register").authenticated();
                     authorizeRequests.requestMatchers
-                            ("/admin/**").hasRole("ADMIN");
+                            ("/admin/**","/board/update").hasRole("ADMIN");
                     //위의 3가지 조건을 제외한 나머지 모든 접근은 인증이 되어야 접근이 가능함.
                     authorizeRequests
                             .anyRequest().authenticated();
@@ -109,6 +111,13 @@ public class CustomSecurityConfig {
 
         // 자동 로그인 순서2,
 
+        // 403 에러 페이지 연결 하기.
+        http.exceptionHandling(
+                exception -> {
+                    exception.accessDeniedHandler(accessDeniedHandler());
+                });
+
+
 
         return http.build();
     }
@@ -138,6 +147,14 @@ public class CustomSecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    // 403 핸들러 추가.
+    // 설정 클래스에 추가하기.
+    // 레스트용, Content-Type, application/json 형태 일 때만 동작을하고,
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new Custom403Handler();
     }
 
 

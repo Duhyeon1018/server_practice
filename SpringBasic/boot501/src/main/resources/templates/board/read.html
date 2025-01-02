@@ -139,7 +139,7 @@
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text">작성자</span>
-                        <input type="text" class="form-control updateReplyer">
+                        <input type="text" class="form-control updateReplyer" readonly>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -182,6 +182,14 @@
     //         self.location = "/board/update?bno=" + [[${dto.bno}]] + "&" + [[${pageRequestDTO.link}]]
     //             , false
     //     })
+
+    // 현재 로그인한 유저 표시
+    // 1/2 목요일 여기서부터
+    const currentUser = [[${#authentication.principal.username}]]
+    console.log("currentUser : " + currentUser)
+    // 댓글 작성자와 현재 유저 일치 여부.
+    let hasAuth = false
+
 
     // 비동기 함수, 테스트 작업.
     // 순서2, 현재 게시글의  bno 번호를 알아야 함
@@ -388,12 +396,22 @@
             updateReplyText.value = reply.replyText
             updateReplyer.value = reply.replyer
             updateModal.show()
+            // 댓글 작성자와 현재 유저 일치 여부.
+            hasAuth = currentUser === reply.replyer
         })
             .catch(e => alert("댓글 추가 예외 발생함"))
     }, false)
 
     //댓글 수정, 로직 처리,
     updateBtn.addEventListener("click", function (e) {
+
+        // 댓글 작성자와 현재 유저 일치시 처리 가능.
+        if(!hasAuth){
+            alert("댓글 작성자만 수정 가능합니다.")
+            updateModal.hide()
+            return
+        }
+
         //변경된 댓글 내용과, 작성자를 가져오기,
         const replyObj = {
             bno: bno,
@@ -417,6 +435,13 @@
 
     // 삭제 로직 처리 추가.
     deleteBtn.addEventListener("click", function (e) {
+
+        // 댓글 작성자와 현재 유저 일치시 처리 가능.
+        if(!hasAuth){
+            alert("댓글 작성자만 삭제 가능합니다.")
+            updateModal.hide()
+            return
+        }
 
         const rno = replyHeader.innerHTML
         console.log("replyHeader.innerHTML : " + replyHeader.innerHTML)
