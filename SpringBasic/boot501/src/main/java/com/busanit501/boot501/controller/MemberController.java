@@ -58,4 +58,10 @@ public class MemberController {
         redirectAttributes.addFlashAttribute("result", "success");
         return "redirect:/member/login";
     }
+
+    //회원 수정용 화면, 임시 화면
+    @GetMapping("/modify")
+    public void modify() {
+
+    }
 }

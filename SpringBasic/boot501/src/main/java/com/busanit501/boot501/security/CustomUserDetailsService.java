@@ -67,6 +67,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (result.isEmpty()) {
             throw new UsernameNotFoundException(username);
         }
+        // Member , 조회시, 권한 테이블도 같이 조인해서 조회.
         Member member = result.get();
         // 중요한 부분, 반환 타입 UserDetails 로 반환해야해서,
         // member -> MemberSecurityDTO 변환해서, 반환하기.

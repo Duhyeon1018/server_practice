@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
@@ -50,6 +51,14 @@ public class MemberRepositoryTests {
         log.info(member.getRoleSet());
         member.getRoleSet().forEach(role -> log.info(role.name()));
 
+    }
+    // 사용자 패스워드 변경해보기.
+    @Test
+    @Commit
+    public void testUpdatePassword() {
+        String mid = "lsy3709@kakao.com";
+        String mpw = passwordEncoder.encode("1234");
+        memberRepository.updatePassword(mid, mpw);
     }
 
 }

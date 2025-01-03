@@ -21,46 +21,64 @@
 
         <div class="card align-self-center">
             <div class="card-header">
-                Join Page
+                LOGIN Page
             </div>
             <div class="card-body">
+                <!--            로그아웃 여부 확인하는 코드-->
+                <!--            파라미터로 logout 있다면, 로그인 입력폼 안보이게 하기-->
+                <th:block th:if="${param.logout != null}">
+                    <h1>Logout........</h1>
+                </th:block>
+
+                <!--방법2, 접근 권한이 없을 경우, 로그인 페이지에서 파라미터의 값으로 조건부 렌더링 -->
+                <th:block th:if="${param.error != null}">
+                    <h1 th:if="${error == 'ACCESS_DENIED'}">접근 권한이 없습니다. Access Denied</h1>
+                </th:block>
 
                 <!--            로그아웃 파라미터 추가 설정-->
-                <form id="registerForm" action="/member/join" method="post">
+                <form id="registerForm" action="/member/login" method="post"
+                      th:if="${param.logout == null}">
                     <div class="input-group mb-3">
-                        <span class="input-group-text">mid</span>
-                        <input type="text" name="mid" class="form-control" placeholder="사용자 mid">
+                        <span class="input-group-text">아이디</span>
+                        <input type="text" name="username" class="form-control" placeholder="USER ID">
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text">mpw</span>
-                        <input type="password" name="mpw" class="form-control" placeholder="사용자 mpw">
+                        <span class="input-group-text">패스워드</span>
+                        <input type="password" name="password" class="form-control" placeholder="PASSWORD">
                     </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">email</span>
-                        <input type="email" name="email" class="form-control" placeholder="사용자 email">
+                    <div class="input-group mb-3 ">
+                        <input class="form-check-input" type="checkbox" name="remember-me">
+                        <label class="form-check-label">
+                            자동 로그인
+                        </label>
                     </div>
-
                     <div class="my-4">
-                        <button type="submit" class="btn btn-primary w-100 joinBtn">Join</button>
+                        <button type="button" class="btn btn-primary w-100 joinBtn">Join</button>
                     </div>
                     <div class="my-4">
-                        <button type="reset" class="btn btn-primary w-100 submitBtn">Reset</button>
+                        <button type="submit" class="btn btn-primary w-100 submitBtn">LOGIN</button>
                     </div>
+                    <a href="/oauth2/authorization/kakao">
+                        <img th:src="@{/images/login/kakao_login_medium_narrow.png}" alt="카카오 로그인 화면">
+                    </a>
                 </form>
             </div>
         </div>
     </div>
-    <!--    fragment content  끝-->
+    <!--    끝나는 부분 fragment-->
     <script layout:fragment="javascript" th:inline="javascript">
-        // 중복 아이디 처리 경고창 추가하기
-        const error = [[${error}]]
+        document.querySelector(".joinBtn").addEventListener("click", function (e){
+            e.preventDefault()
+            e.stopPropagation()
+            self.location = "/member/join"
+        })
 
-
-        if(error && error === "mid") {
-            alert("중복된 아이디입니다.")
+        const result = [[${result}]]
+        if(result && result === "success") {
+            alert("회원가입 축하합니다.")
         }
-
     </script>
+
 </div>
 
 </body>
